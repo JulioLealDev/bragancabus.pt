@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Bragança Bus — app de horários e rotas de autocarros em Bragança" />
+  <title>Bragança Bus — App de Autocarros</title>
+  <style>
+    :root {
+      --bg: #0b1020;
+      --card: #11162a;
+      --muted: #a9b4c7;
+      --text: #eef3ff;
+      --brand: #4f86ff;
+      --brand-2: #7cf5ff;
+      --ok: #22c55e;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--text);
+      background: radial-gradient(1200px 800px at 80% -10%, rgba(127, 229, 255, .12), transparent 60%),
+                  radial-gradient(900px 700px at -10% 20%, rgba(79, 134, 255, .12), transparent 60%),
+                  var(--bg);
+      line-height: 1.6;
+    }
+    a { color: var(--brand-2); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .container { width: min(1100px, 92%); margin: 0 auto; }
+
+    header {
+      position: sticky; top: 0; z-index: 20;
+      backdrop-filter: blur(8px);
+      background: linear-gradient(180deg, rgba(11,16,32,.85), rgba(11,16,32,.55) 60%, transparent);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; }
+    .logo { display: inline-flex; align-items: center; gap: .6rem; font-weight: 700; letter-spacing: .3px; }
+    .badge { display:inline-flex; width: 34px; height: 34px; border-radius: 10px; align-items:center; justify-content:center; background: linear-gradient(135deg, var(--brand), var(--brand-2)); box-shadow: 0 6px 20px rgba(79,134,255,.35); }
+    .nav a { color: var(--muted); margin-left: 18px; font-weight: 600; }
+    .nav a:hover { color: var(--text); }
+
+    .hero { display: grid; grid-template-columns: 1.1fr .9fr; gap: 32px; align-items: center; padding: 60px 0 28px; }
+    .hero h1 { font-size: clamp(28px, 4.2vw, 46px); line-height: 1.15; margin: 0 0 10px; letter-spacing: .2px; }
+    .lead { font-size: clamp(16px, 2.2vw, 19px); color: var(--muted); margin: 0 0 22px; }
+
+    .cta { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn { display:inline-flex; align-items:center; gap:10px; padding: 12px 16px; border-radius: 12px; font-weight:700; border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04); }
+    .btn.primary { background: linear-gradient(135deg, var(--brand), var(--brand-2)); color: #051125; border: none; box-shadow: 0 8px 24px rgba(79,134,255,.35); }
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 8px 18px rgba(255,255,255,.06); }
+
+    .phone-card { background: var(--card); border: 1px solid rgba(255,255,255,.06); border-radius: 18px; padding: 20px; position: relative; box-shadow: inset 0 0 0 1px rgba(255,255,255,.02), 0 10px 30px rgba(0,0,0,.2); }
+    .screen { aspect-ratio: 9/19.5; border-radius: 14px; background: linear-gradient(180deg, #1a2240, #0f1430); border: 1px solid rgba(255,255,255,.08); display: grid; place-items: center; color: #bcd3ff; font-weight: 700; letter-spacing: .4px; }
+
+    .features { display: grid; gap: 16px; grid-template-columns: repeat(3, 1fr); margin: 30px 0 60px; }
+    .feat { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.06); border-radius: 14px; padding: 16px; }
+    .feat h3 { margin: 8px 0 6px; font-size: 18px; }
+    .feat p { margin: 0; color: var(--muted); }
+
+    .download { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; align-items: center; margin: 60px 0; }
+    .qr-wrap { display: grid; grid-template-columns: 240px 1fr; gap: 20px; align-items: center; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.06); border-radius: 16px; padding: 18px; }
+    .qr-hint { color: var(--muted); font-size: 14px; }
+    .stat { display:flex; align-items:center; gap:10px; color: #bfead0; }
+    .stat .dot { width:10px; height:10px; border-radius:999px; background: var(--ok); box-shadow: 0 0 0 4px rgba(34,197,94,.18); }
+
+    .contact { background: linear-gradient(0deg, rgba(255,255,255,.02), rgba(255,255,255,0)); border: 1px solid rgba(255,255,255,.06);
+               border-radius: 16px; padding: 18px; margin: 40px 0 70px; }
+
+    footer { color: var(--muted); font-size: 14px; border-top: 1px solid rgba(255,255,255,.06); padding: 18px 0 40px; }
+
+    @media (max-width: 930px) {
+      .hero { grid-template-columns: 1fr; padding-top: 28px; }
+      .features { grid-template-columns: 1fr; }
+      .download { grid-template-columns: 1fr; }
+      .qr-wrap { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="logo">
+        <span class="badge" aria-hidden="true">
+          <!-- bus icon -->
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M17 1H7a4 4 0 0 0-4 4v9a2 2 0 0 0 2 2v3a1 1 0 0 0 2 0v-3h10v3a1 1 0 1 0 2 0v-3a2 2 0 0 0 2-2V5a4 4 0 0 0-4-4ZM7 3h10a2 2 0 0 1 2 2v1H5V5a2 2 0 0 1 2-2Zm12 6H5V8h14v1ZM7 17a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm10 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z"/></svg>
+        </span>
+        Bragança Bus
+      </div>
+      <nav>
+        <a href="#app">App</a>
+        <a href="#download">Download</a>
+        <a href="#contato">Contacto</a>
+        <a href="https://github.com/SEU-USUARIO/SEU-REPO" target="_blank" rel="noopener">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero" id="app">
+      <div>
+        <h1>Horários e rotas de autocarros em Bragança — no teu bolso.</h1>
+        <p class="lead">O <strong>Bragança Bus</strong> mostra linhas, paragens e previsão de chegada. Mapa em tempo real, pesquisa rápida e interface leve para o teu dia‑a‑dia.</p>
+        <div class="cta">
+          <a id="play-btn-top" class="btn primary" href="#" target="_blank" rel="noopener">
+            <!-- play icon -->
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="currentColor"><path d="M5 3.653v16.694a1 1 0 0 0 1.515.857l14.022-8.347a1 1 0 0 0 0-1.714L6.515 2.796A1 1 0 0 0 5 3.653Z"/></svg>
+            <span>Obter na Google Play</span>
+          </a>
+          <a href="#download" class="btn">Ver QR Code</a>
+        </div>
+        <div style="margin-top:16px; display:flex; gap:18px; flex-wrap:wrap; color:var(--muted); font-size:14px;">
+          <span class="stat"><span class="dot"></span> SSL & CDN grátis (GitHub Pages)</span>
+          <span>Sem anúncios • Leve • Gratuito</span>
+        </div>
+      </div>
+      <div class="phone-card">
+        <div class="screen">Pré‑visualização do App</div>
+      </div>
+    </section>
+
+    <section class="features" aria-label="Funcionalidades">
+      <article class="feat">
+        <h3>Linhas & Paragens</h3>
+        <p>Consulta percursos, horários e pontos de paragem oficiais.</p>
+      </article>
+      <article class="feat">
+        <h3>Previsão de Chegada</h3>
+        <p>Estimativas de ETA para planeares melhor as tuas viagens.</p>
+      </article>
+      <article class="feat">
+        <h3>Mapa Interativo</h3>
+        <p>Visualiza a rota da linha e a tua posição no mapa.</p>
+      </article>
+    </section>
+
+    <section class="download" id="download">
+      <div class="qr-wrap">
+        <img id="qr" src="" alt="QR code para download na Google Play" width="240" height="240" style="border-radius:12px; background:#fff; padding:10px;" />
+        <div>
+          <h2 style="margin:0 0 6px;">Faz download do Bragança Bus</h2>
+          <p class="qr-hint">Aponta a câmara para o QR code ou usa o botão abaixo para ir à loja.</p>
+          <div class="cta" style="margin-top:12px;">
+            <a id="play-btn" class="btn primary" href="#" target="_blank" rel="noopener">Abrir na Google Play</a>
+            <button class="btn" id="copy-link" type="button">Copiar link</button>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3 style="margin:0 0 8px;">Requisitos</h3>
+        <ul style="margin:0; color:var(--muted); padding-left:18px;">
+          <li>Android 8.0 ou superior</li>
+          <li>Ligação à internet para dados em tempo real</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="contact" id="contato">
+      <h2 style="margin:0 0 10px;">Contacto do Desenvolvedor</h2>
+      <p style="margin:0 0 6px; color:var(--muted);">Fala comigo para suporte, parcerias ou feedback.</p>
+      <ul style="list-style:none; padding:0; margin:0; display:grid; gap:8px;">
+        <li><strong>Nome:</strong> <span id="dev-name">O SEU NOME</span></li>
+        <li><strong>Email:</strong> <a id="dev-email" href="mailto:seu.email@exemplo.com">seu.email@exemplo.com</a></li>
+        <li><strong>Website:</strong> <a id="dev-site" href="https://seu-site.pt" target="_blank" rel="noopener">https://seu-site.pt</a></li>
+        <li><strong>GitHub:</strong> <a id="dev-github" href="https://github.com/SEU-USUARIO" target="_blank" rel="noopener">github.com/SEU-USUARIO</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">© <span id="year"></span> Bragança Bus. Todos os direitos reservados.</div>
+  </footer>
+
+  <script>
+    // === CONFIGURE AQUI ===
+    // Coloque o URL real da Google Play assim que o app estiver publicado
+    const PLAY_URL = "https://play.google.com/store/apps/details?id=SEU.PACOTE.ANDROID"; // TODO: substituir
+
+    // Dados do desenvolvedor (opcional) — actualize estes campos
+    const DEV = {
+      name: "O SEU NOME",
+      email: "seu.email@exemplo.com",
+      site: "https://seu-site.pt",
+      github: "https://github.com/SEU-USUARIO"
+    };
+
+    // === NÃO PRECISA MEXER ABAIXO ===
+    const yearEl = document.getElementById('year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+    // Actualiza botões da Play
+    const playTop = document.getElementById('play-btn-top');
+    const playBtn = document.getElementById('play-btn');
+    if (playTop) playTop.href = PLAY_URL;
+    if (playBtn) playBtn.href = PLAY_URL;
+
+    // Gera QR via serviço público
+    const qr = document.getElementById('qr');
+    const qrApi = (url) => `https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=${encodeURIComponent(url)}`;
+    if (qr) qr.src = qrApi(PLAY_URL);
+
+    // Copiar link
+    const copyBtn = document.getElementById('copy-link');
+    if (copyBtn) {
+      copyBtn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(PLAY_URL);
+          copyBtn.textContent = 'Link copiado!';
+          setTimeout(() => copyBtn.textContent = 'Copiar link', 1600);
+        } catch (e) {
+          alert('Não foi possível copiar.');
+        }
+      });
+    }
+
+    // Inject dados do dev
+    const nameEl = document.getElementById('dev-name');
+    const emailEl = document.getElementById('dev-email');
+    const siteEl = document.getElementById('dev-site');
+    const ghEl = document.getElementById('dev-github');
+
+    if (nameEl) nameEl.textContent = DEV.name;
+    if (emailEl) emailEl.textContent = DEV.email, emailEl.href = `mailto:${DEV.email}`;
+    if (siteEl) siteEl.textContent = DEV.site, siteEl.href = DEV.site;
+    if (ghEl) ghEl.textContent = DEV.github.replace('https://', ''), ghEl.href = DEV.github;
+  </script>
+
+  <!--
+  🛠 Como publicar no GitHub Pages
+  1) Crie um repositório público (ex.: braganca-bus-site)
+  2) Coloque este arquivo como index.html na raiz e faça push
+  3) Em Settings → Pages, selecione Deploy from a branch: main /(root) → Save
+  4) Aguarde o URL: https://SEU-USUARIO.github.io/braganca-bus-site/
+  5) Substitua PLAY_URL, DEV.* e os links do menu
+  -->
+</body>
+</html>
