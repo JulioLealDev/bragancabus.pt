@@ -7,23 +7,24 @@
   <title>Bragança Bus — App de Autocarros</title>
   <style>
     :root {
-      --bg: #0b1020;
-      --card: #11162a;
-      --muted: #a9b4c7;
-      --text: #eef3ff;
-      --brand: #4f86ff;
-      --brand-2: #7cf5ff;
-      --ok: #22c55e;
+      /* Paleta aquecida para harmonizar com a logo (dourado → vermelho) */
+      --bg: #eee3d9; /* fundo bege muito claro */
+      --card: #fffdfa; /* cartões em tom quase branco */
+      --muted: #7c6b55; /* texto secundário em marrom suave */
+      --text: #3e2f1d; /* texto principal castanho escuro */
+      --brand: #c4a562; /* dourado da logo */
+      --brand-2: #e0634e; /* vermelho da logo */
+      --ok: #22b574; /* verde de status harmonioso */
     }
     * { box-sizing: border-box; }
-    html, body { height: 100%; }
+    html, body { min-height: 100%; }
     body {
       margin: 0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
       color: var(--text);
-      background: radial-gradient(1200px 800px at 80% -10%, rgba(127, 229, 255, .12), transparent 60%),
-                  radial-gradient(900px 700px at -10% 20%, rgba(79, 134, 255, .12), transparent 60%),
-                  var(--bg);
+      background: linear-gradient(180deg, #ecddc1 0%, #ebbda8 100% );
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
       line-height: 1.6;
     }
     a { color: var(--brand-2); text-decoration: none; }
@@ -33,9 +34,8 @@
 
     header {
       position: sticky; top: 0; z-index: 20;
-      backdrop-filter: blur(8px);
-      background: linear-gradient(180deg, rgba(11,16,32,.85), rgba(11,16,32,.55) 60%, transparent);
-      border-bottom: 1px solid rgba(255,255,255,.06);
+      background: rgba(255,255,255,0.95);
+      border-bottom: 1px solid rgba(0,0,0,.05);
     }
     .nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; }
     .logo { display: inline-flex; align-items: center; gap: .6rem; font-weight: 700; letter-spacing: .3px; }
@@ -43,31 +43,68 @@
     .nav a { color: var(--muted); margin-left: 18px; font-weight: 600; }
     .nav a:hover { color: var(--text); }
 
-    .hero { display: grid; grid-template-columns: 1.1fr .9fr; gap: 32px; align-items: center; padding: 60px 0 28px; }
+    .section_hero { padding-top: 120px;}
+    .hero {display: grid; grid-template-columns: 1.1fr .9fr; gap: 32px; align-items: center; padding: 0 0 28px; }
     .hero h1 { font-size: clamp(28px, 4.2vw, 46px); line-height: 1.15; margin: 0 0 10px; letter-spacing: .2px; }
     .lead { font-size: clamp(16px, 2.2vw, 19px); color: var(--muted); margin: 0 0 22px; }
 
     .cta { display: flex; gap: 12px; flex-wrap: wrap; }
     .btn { display:inline-flex; align-items:center; gap:10px; padding: 12px 16px; border-radius: 12px; font-weight:700; border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04); }
-    .btn.primary { background: linear-gradient(135deg, var(--brand), var(--brand-2)); color: #051125; border: none; box-shadow: 0 8px 24px rgba(79,134,255,.35); }
+    .btn.primary { background: linear-gradient(135deg, var(--brand), var(--brand-2)); color: #ffffff; border: none; box-shadow: 0 8px 24px rgba(192, 156, 122, 0.35); }
     .btn:hover { transform: translateY(-1px); box-shadow: 0 8px 18px rgba(255,255,255,.06); }
 
-    .phone-card { background: var(--card); border: 1px solid rgba(255,255,255,.06); border-radius: 18px; padding: 20px; position: relative; box-shadow: inset 0 0 0 1px rgba(255,255,255,.02), 0 10px 30px rgba(0,0,0,.2); }
-    .screen { aspect-ratio: 9/19.5; border-radius: 14px; background: linear-gradient(180deg, #1a2240, #0f1430); border: 1px solid rgba(255,255,255,.08); display: grid; place-items: center; color: #bcd3ff; font-weight: 700; letter-spacing: .4px; }
+    .phone-frame{max-width:100%;border-radius:24px;background:#000000;padding:18px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
+    .carousel{position:relative;aspect-ratio:9/19.5;overflow:hidden;border-radius:18px;background:#000}
+    .slide{position:absolute;inset:0;object-fit:cover;width:100%;height:100%;opacity:0;transition:opacity .4s ease}
+    .slide.active{opacity:1}
+    .cnav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.85);border:none;border-radius:999px;width:36px;height:36px;font-size:22px;line-height:36px;text-align:center;cursor:pointer}Horários e rotas de 
+    .cnav.prev{left:8px}
+    .cnav.next{right:8px}
 
-    .features { display: grid; gap: 16px; grid-template-columns: repeat(3, 1fr); margin: 30px 0 60px; }
-    .feat { background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.06); border-radius: 14px; padding: 16px; }
+    .features { display: grid; gap: 18px; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); margin: 40px 0 60px; }
+    .feat{ background:#fffdfa; border:1px solid rgba(0,0,0,.06); border-radius:14px; padding:16px; box-shadow:0 2px 10px rgba(0,0,0,.05);}
     .feat h3 { margin: 8px 0 6px; font-size: 18px; }
     .feat p { margin: 0; color: var(--muted); }
+    .feature-card { position: relative; background: #fff; border: 1px solid rgba(0, 0, 0, .06); border-radius: 16px; padding: 18px 16px 20px 16px; box-shadow: 0 6px 22px rgba(0, 0, 0, .06); transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease; }
+    .feature-card::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 4px; border-radius: 16px 16px 0 0; background: linear-gradient(90deg, var(--brand), var(--brand-2)); opacity: .85; }
+    .feature-card:hover { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(0, 0, 0, .10); border-color: rgba(0, 0, 0, .10); }
+    .f-icon { width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--brand), var(--brand-2)); color: #fff; box-shadow: 0 6px 18px rgba(224, 99, 78, .25); margin-bottom: 10px; }
+    .f-title { margin: 0 0 6px 0; font-size: 18px; font-weight: 800; letter-spacing: .2px; color: #2b200f; }
+    .f-desc { margin: 0; color: var(--muted); }
 
-    .download { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; align-items: center; margin: 60px 0; }
-    .qr-wrap { display: grid; grid-template-columns: 240px 1fr; gap: 20px; align-items: center; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.06); border-radius: 16px; padding: 18px; }
-    .qr-hint { color: var(--muted); font-size: 14px; }
+    .section_download { padding-top: 150px;}
+    .download { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; align-items: center; margin: 60px 0; padding: 50px; background: hsla(36, 26%, 93%, 0.733); border: 1px solid rgba(255,255,255,.06); border-radius: 16px; }
+    .qr-wrap { display: grid; grid-template-columns: 240px 1fr; gap: 20px; align-items: center;}
+    .qr-hint { color: var(--muted); font-size: 20px; }
     .stat { display:flex; align-items:center; gap:10px; color: #bfead0; }
     .stat .dot { width:10px; height:10px; border-radius:999px; background: var(--ok); box-shadow: 0 0 0 4px rgba(34,197,94,.18); }
 
-    .contact { background: linear-gradient(0deg, rgba(255,255,255,.02), rgba(255,255,255,0)); border: 1px solid rgba(255,255,255,.06);
-               border-radius: 16px; padding: 18px; margin: 40px 0 70px; }
+    .section_privacy { padding-top: 70px;}
+    .privacy {  border-radius: 16px; padding: 28px; margin: 60px 0;  color: var(--text); background: hsla(36, 26%, 93%, 0.733); border: 1px solid rgba(255,255,255,.06); border-radius: 16px; }
+    .privacy h2 { color: var(--brand-2); margin-top: 0; }
+    .privacy h3 { margin-top: 22px; color: var(--brand); }
+    .privacy ul { margin-left: 20px; color: var(--muted); }
+    .privacy details { background: #eee3d9; border-radius: 10px; margin-top: 14px; padding: 14px 18px; border: 1px solid rgba(0,0,0,0.08); box-shadow: 0 2px 6px rgba(0,0,0,0.04); transition: all .2s ease; }
+    .privacy summary { font-weight: 700; font-size: 16px; color: var(--brand-2); cursor: pointer; list-style: none; }
+    .privacy summary::-webkit-details-marker { display: none; /* remove o triângulo padrão */ }
+    .privacy details[open] { box-shadow: 0 4px 10px rgba(0,0,0,0.08); }
+    .privacy details[open] summary { color: var(--brand); }
+    .privacy details p, .privacy details ul { margin-top: 10px; color: var(--text); }
+
+    .contact { padding: 40px 24px; margin: 60px 0; text-align: center; }
+    .contact h2 { color: var(--text); margin-top: 0;}
+    .contact-desc { color: var(--muted); margin-bottom: 24px; font-size: 18px;}
+    .contact-info p { margin: 6px 0; color: var(--text); }
+    .contact-info a { color: var(--brand-2); text-decoration: none; }
+    .contact-info a:hover { text-decoration: underline; }
+    .social-links { display: flex; justify-content: center; gap: 18px; margin-top: 24px; }
+    .social { display: flex; align-items: center; justify-content: center; width: 42px; height: 42px; border-radius: 50%; color: #fff; transition: transform .2s ease, opacity .2s ease;}
+
+    .social.wa { background: #25D366; }
+    .social.ig { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
+    .social.li { background: #0077b5; }
+    .social.gh { background: #24292e; }
+    .social:hover { transform: translateY(-3px); opacity: 0.9; }
 
     footer { color: var(--muted); font-size: 14px; border-top: 1px solid rgba(255,255,255,.06); padding: 18px 0 40px; }
 
@@ -77,96 +114,201 @@
       .download { grid-template-columns: 1fr; }
       .qr-wrap { grid-template-columns: 1fr; justify-items: center; text-align: center; }
     }
+
   </style>
 </head>
 <body>
   <header>
     <div class="container nav">
       <div class="logo">
-        <span class="badge" aria-hidden="true">
-          <!-- bus icon -->
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M17 1H7a4 4 0 0 0-4 4v9a2 2 0 0 0 2 2v3a1 1 0 0 0 2 0v-3h10v3a1 1 0 1 0 2 0v-3a2 2 0 0 0 2-2V5a4 4 0 0 0-4-4ZM7 3h10a2 2 0 0 1 2 2v1H5V5a2 2 0 0 1 2-2Zm12 6H5V8h14v1ZM7 17a2 2 0 1 1 0-4 2 2 0 0 1 0 4Zm10 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4Z"/></svg>
-        </span>
-        Bragança Bus
+        <img src="images/logo_and_title.png" alt="Bragança Bus" style="height:72px; width:auto; border-radius:8px; display:block;" />
       </div>
       <nav>
         <a href="#app">App</a>
         <a href="#download">Download</a>
-        <a href="#contato">Contacto</a>
-        <a href="https://github.com/SEU-USUARIO/SEU-REPO" target="_blank" rel="noopener">GitHub</a>
+        <a href="#privacidade">Privacidade</a>
+        <a href="#contacto">Contacto</a>
       </nav>
     </div>
   </header>
 
   <main class="container">
-    <section class="hero" id="app">
-      <div>
-        <h1>Horários e rotas de autocarros em Bragança — no teu bolso.</h1>
-        <p class="lead">O <strong>Bragança Bus</strong> mostra linhas, paragens e previsão de chegada. Mapa em tempo real, pesquisa rápida e interface leve para o teu dia‑a‑dia.</p>
-        <div class="cta">
-          <a id="play-btn-top" class="btn primary" href="#" target="_blank" rel="noopener">
-            <!-- play icon -->
-            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="currentColor"><path d="M5 3.653v16.694a1 1 0 0 0 1.515.857l14.022-8.347a1 1 0 0 0 0-1.714L6.515 2.796A1 1 0 0 0 5 3.653Z"/></svg>
-            <span>Obter na Google Play</span>
-          </a>
-          <a href="#download" class="btn">Ver QR Code</a>
-        </div>
-        <div style="margin-top:16px; display:flex; gap:18px; flex-wrap:wrap; color:var(--muted); font-size:14px;">
-          <span class="stat"><span class="dot"></span> SSL & CDN grátis (GitHub Pages)</span>
-          <span>Sem anúncios • Leve • Gratuito</span>
-        </div>
-      </div>
-      <div class="phone-card">
-        <div class="screen">Pré‑visualização do App</div>
-      </div>
-    </section>
+    <section class="section_hero" id="app">
 
-    <section class="features" aria-label="Funcionalidades">
-      <article class="feat">
-        <h3>Linhas & Paragens</h3>
-        <p>Consulta percursos, horários e pontos de paragem oficiais.</p>
-      </article>
-      <article class="feat">
-        <h3>Previsão de Chegada</h3>
-        <p>Estimativas de ETA para planeares melhor as tuas viagens.</p>
-      </article>
-      <article class="feat">
-        <h3>Mapa Interativo</h3>
-        <p>Visualiza a rota da linha e a tua posição no mapa.</p>
-      </article>
-    </section>
+      <div class="hero">
 
-    <section class="download" id="download">
-      <div class="qr-wrap">
-        <img id="qr" src="" alt="QR code para download na Google Play" width="240" height="240" style="border-radius:12px; background:#fff; padding:10px;" />
         <div>
-          <h2 style="margin:0 0 6px;">Faz download do Bragança Bus</h2>
-          <p class="qr-hint">Aponta a câmara para o QR code ou usa o botão abaixo para ir à loja.</p>
-          <div class="cta" style="margin-top:12px;">
-            <a id="play-btn" class="btn primary" href="#" target="_blank" rel="noopener">Abrir na Google Play</a>
-            <button class="btn" id="copy-link" type="button">Copiar link</button>
+          <h1>Horários e rotas de autocarros em Bragança no teu bolso.</h1>
+          <p class="lead">O <strong>Bragança Bus</strong> mostra linhas, paragens e previsão de chegada. Mapa em tempo real, pesquisa rápida e interface leve para o teu dia‑a‑dia.</p>
+
+          <div style="margin-top:16px; display:flex; gap:18px; flex-wrap:wrap; justify-content:center; width:100%; color:var(--muted); font-size:26px;">
+            <span>Sem anúncios • Sem cadastro • Gratuito</span>
+          </div>
+
+          <div class="features">
+            <article class="feature-card">
+              <div class="f-icon">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M17 1H7a4 4 0 0 0-4 4v9a2 2 0 0 0 2 2v3a1 1 0 0 0 2 0v-3h10v3a1 1 0 1 0 2 0v-3a2 2 0 0 0 2-2V5a4 4 0 0 0-4-4Z"/></svg>
+              </div>
+              <h3 class="f-title">Linhas & Paragens</h3>
+              <p class="f-desc">Consulta percursos, horários e pontos de paragem oficiais.</p>
+            </article>
+
+            <article class="feature-card">
+              <div class="f-icon">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12 1a11 11 0 1 0 0 22 11 11 0 0 0 0-22Zm1 11.41V6h-2v7l5 3 .98-1.72L13 12.41Z"/></svg>
+              </div>
+              <h3 class="f-title">Previsão de Chegada</h3>
+              <p class="f-desc">Tempo estimado para planeares melhor as tuas viagens.</p>
+            </article>
+
+            <article class="feature-card">
+              <div class="f-icon">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M15 4 9 6 3 4v16l6 2 6-2 6 2V6l-6-2Zm0 2v12l-6 2V8l6-2Z"/></svg>
+              </div>
+              <h3 class="f-title">Mapa Interativo</h3>
+              <p class="f-desc">Vê a rota da linha e a tua posição no mapa.</p>
+            </article>
+
+            <article class="feature-card">
+              <div class="f-icon">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M4 5h14v12a2 2 0 0 0 2 2H6a2 2 0 0 1-2-2V5Zm2 2v10h10V7H6Zm12 0h2v10a1 1 0 0 1-2 0V7Z"/></svg>
+              </div>
+              <h3 class="f-title">Notícias & Eventos</h3>
+              <p class="f-desc">Fica por dentro das novidades da cidade.</p>
+            </article>
+          </div>
+
+        </div>
+
+        <div class="phone-frame">
+          <div class="carousel" id="app-carousel">
+            <img src="images/home.jpeg" class="slide active" alt="Home" />
+            <img src="images/info.jpeg" class="slide" alt="Info" />
+            <img src="images/lines.jpeg" class="slide" alt="Lines" />
+            <button class="cnav prev" aria-label="Anterior">‹</button>
+            <button class="cnav next" aria-label="Seguinte">›</button>
           </div>
         </div>
+
       </div>
-      <div>
-        <h3 style="margin:0 0 8px;">Requisitos</h3>
-        <ul style="margin:0; color:var(--muted); padding-left:18px;">
-          <li>Android 8.0 ou superior</li>
-          <li>Ligação à internet para dados em tempo real</li>
-        </ul>
+      
+    </section>
+
+    <section class="section_download" id="download">
+      <div class="download">
+        <div>
+          <h1 style="margin:0 0 6px;">Faz já o download do Bragança Bus</h2>
+          <div style="margin-top:16px; display:flex; gap:18px; flex-wrap:wrap;  color:var(--muted); font-size:22px;">
+            <span>Sem anúncios • Sem cadastro • Gratuito</span>
+          </div>
+          <div style="margin-top:16px; gap:18px;">
+            <h3 style="margin:0 0 8px;">Disponível para:</h3> 
+            <ul style="margin:0; color:var(--muted); padding-left:18px;"> 
+              <li>Android</li> 
+              <li>IOS (em breve)</li> 
+            </ul> 
+          </div>
+        </div>
+
+        <div class="qr-wrap"> 
+          <img id="qr" src="" alt="QR code para download na Google Play" width="240" height="240" style="border-radius:12px; background:#fff; padding:10px;" /> 
+          <div> 
+            <p class="qr-hint">Aponta a câmara para o QR code ou usa o botão abaixo para ir à loja.</p> 
+            <div class="cta" style="margin-top:12px;"> 
+              <a id="play-btn" class="btn primary" href="#" target="_blank" rel="noopener">Abrir na Google Play</a> 
+            </div> 
+          </div> 
+        </div> 
       </div>
     </section>
 
-    <section class="contact" id="contato">
-      <h2 style="margin:0 0 10px;">Contacto do Desenvolvedor</h2>
-      <p style="margin:0 0 6px; color:var(--muted);">Fala comigo para suporte, parcerias ou feedback.</p>
-      <ul style="list-style:none; padding:0; margin:0; display:grid; gap:8px;">
-        <li><strong>Nome:</strong> <span id="dev-name">O SEU NOME</span></li>
-        <li><strong>Email:</strong> <a id="dev-email" href="mailto:seu.email@exemplo.com">seu.email@exemplo.com</a></li>
-        <li><strong>Website:</strong> <a id="dev-site" href="https://seu-site.pt" target="_blank" rel="noopener">https://seu-site.pt</a></li>
-        <li><strong>GitHub:</strong> <a id="dev-github" href="https://github.com/SEU-USUARIO" target="_blank" rel="noopener">github.com/SEU-USUARIO</a></li>
-      </ul>
-    </section>
+    <section class="section_privacy" id="privacidade">
+
+      <div class="privacy" >
+
+        <h1>Política de Privacidade — Aplicativo BragançaBus</h2>
+        <p><em>Última atualização: 1 de novembro de 2025</em></p>
+
+        <p>O aplicativo <strong>BragançaBus</strong>, desenvolvido para o Município de Bragança, tem como objetivo disponibilizar informações sobre as linhas de transporte urbano, horários e posição estimada dos autocarros em tempo real.</p>
+
+        <p>Esta Política de Privacidade explica como os dados são tratados dentro da aplicação.</p>
+
+        <details>
+          <summary>1. Dados recolhidos</summary>
+          <p>O BragançaBus não recolhe dados pessoais identificáveis (como nome, e-mail ou telefone). O aplicativo pode, no entanto, aceder e processar os seguintes tipos de dados técnicos e operacionais:</p>
+          <ul>
+            <li><strong>Localização do dispositivo (GPS):</strong> utilizada exclusivamente para mostrar a posição atual do utilizador no mapa. A localização não é armazenada nem enviada para servidores.</li>
+            <li><strong>Dados de utilização e desempenho (telemetria anónima):</strong> informações sobre ecrãs visualizados, tempo de utilização e eventuais erros são recolhidas de forma anónima, apenas para fins estatísticos e de melhoria da aplicação.</li>
+            <li><strong>Conectividade e rede:</strong> necessária para obter dados públicos sobre horários, rotas e paragens através da API municipal.</li>
+          </ul>
+        </details>
+
+        <details>
+          <summary>2. Finalidade do tratamento</summary>
+          <p>Os dados mencionados são utilizados apenas para:</p>
+          <ul>
+            <li>Exibir a localização do utilizador no mapa (funcionalidade opcional);</li>
+            <li>Aceder a horários e rotas em tempo real;</li>
+            <li>Avaliar o desempenho e estabilidade da aplicação.</li>
+          </ul>
+          <p>Nenhuma dessas informações é partilhada com terceiros.</p>
+        </details>
+
+        <details>
+          <summary>3. Armazenamento e segurança</summary>
+          <p>O BragançaBus não armazena dados pessoais em servidores próprios. As informações técnicas e de telemetria são processadas de forma anónima, sem permitir a identificação do utilizador.</p>
+        </details>
+
+        <details>
+          <summary>4. Partilha de dados</summary>
+          <p>Nenhum dado é partilhado com terceiros. A única comunicação de rede é realizada com o serviço fornecedor de mapas (<strong>Google Maps</strong>), que segue a sua própria política de privacidade.</p>
+        </details>
+
+        <details>
+          <summary>5. Permissões utilizadas</summary>
+          <ul>
+            <li><strong>ACCESS_FINE_LOCATION</strong> — necessária para mostrar a posição do utilizador no mapa.</li>
+            <li><strong>INTERNET</strong> — necessária para aceder aos serviços online do BragançaBus.</li>
+          </ul>
+          <p>Essas permissões são opcionais, e o utilizador pode negá-las a qualquer momento.</p>
+        </details>
+
+        <details>
+          <summary>6. Contacto</summary>
+          <p>Para qualquer dúvida sobre esta política ou sobre o funcionamento da aplicação, entre em contacto através do endereço:</p>
+          <p><a href="mailto:bragancabus@gmail.com">bragancabus@gmail.com</a></p>
+        </details>
+
+        <details>
+          <summary>7. Alterações</summary>
+          <p>Esta política pode ser atualizada periodicamente. A versão mais recente estará sempre disponível aqui.</p>
+        </details>
+      </section>
+
+
+      <section class="contact" id="contacto">
+        <h2>Contacto</h2>
+        <p class="contact-desc">Fala connosco para suporte, parcerias ou feedback sobre o BragançaBus.</p>
+
+        <div class="contact-info">
+          <p><strong>Email:</strong> <a href="mailto:bragancabus@gmail.com">bragancabus@gmail.com</a></p>
+        </div>
+
+        <div class="social-links">
+          <a href="https://wa.me/351920511056" target="_blank" aria-label="WhatsApp" class="social wa">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+              <path d="M16.62 13.91c-.27-.14-1.61-.8-1.86-.89-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.14-.42-2.17-1.34-.8-.71-1.34-1.59-1.5-1.86-.16-.27-.02-.42.12-.55.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47-.16-.01-.34-.01-.52-.01s-.48.07-.73.34c-.25.27-.96.94-.96 2.29s.98 2.65 1.12 2.83c.14.18 1.93 2.95 4.68 4.14.65.28 1.16.45 1.56.58.65.21 1.24.18 1.7.11.52-.08 1.61-.66 1.84-1.29.23-.63.23-1.17.16-1.29-.07-.11-.25-.18-.52-.32zM12 2C6.48 2 2 6.48 2 12c0 1.97.58 3.8 1.58 5.33L2 22l4.8-1.55A9.93 9.93 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2z"/>
+            </svg>
+          </a>
+          <a href="https://instagram.com/bragancabus" target="_blank" aria-label="Instagram" class="social ig">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+              <path d="M7 2C4.243 2 2 4.243 2 7v10c0 2.757 2.243 5 5 5h10c2.757 0 5-2.243 5-5V7c0-2.757-2.243-5-5-5H7zm0 2h10c1.654 0 3 1.346 3 3v10c0 1.654-1.346 3-3 3H7c-1.654 0-3-1.346-3-3V7c0-1.654 1.346-3 3-3zm5 2.9A5.106 5.106 0 0 0 6.9 10 5.106 5.106 0 0 0 12 15.1 5.106 5.106 0 0 0 17.1 10 5.106 5.106 0 0 0 12 6.9zm0 2A3.106 3.106 0 0 1 15.1 12 3.106 3.106 0 0 1 12 15.1 3.106 3.106 0 0 1 8.9 12 3.106 3.106 0 0 1 12 8.9zm4.5-3.4a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2z"/>
+            </svg>
+          </a>
+        </div>
+      </section>
+
   </main>
 
   <footer>
@@ -180,8 +322,8 @@
 
     // Dados do desenvolvedor (opcional) — actualize estes campos
     const DEV = {
-      name: "O SEU NOME",
-      email: "seu.email@exemplo.com",
+      name: "Júlio Leal",
+      email: "bragancabus@gmail.com",
       site: "https://seu-site.pt",
       github: "https://github.com/SEU-USUARIO"
     };
@@ -215,6 +357,28 @@
       });
     }
 
+    // Carrossel simples
+    const carousel = document.getElementById('app-carousel');
+    if (carousel){
+      const slides = [...carousel.querySelectorAll('.slide')];
+      const prev = carousel.querySelector('.prev');
+      const next = carousel.querySelector('.next');
+      let i = 0, timer;
+      const show = (n)=>{
+        slides[i].classList.remove('active');
+        i = (n + slides.length) % slides.length;
+        slides[i].classList.add('active');
+      };
+      const play = ()=> timer = setInterval(()=> show(i+1), 3500);
+      const stop = ()=> clearInterval(timer);
+      prev.addEventListener('click', ()=>{ stop(); show(i-1); play(); });
+      next.addEventListener('click', ()=>{ stop(); show(i+1); play(); });
+      carousel.addEventListener('mouseenter', stop);
+      carousel.addEventListener('mouseleave', play);
+      play();
+    }
+
+
     // Inject dados do dev
     const nameEl = document.getElementById('dev-name');
     const emailEl = document.getElementById('dev-email');
@@ -227,13 +391,5 @@
     if (ghEl) ghEl.textContent = DEV.github.replace('https://', ''), ghEl.href = DEV.github;
   </script>
 
-  <!--
-  🛠 Como publicar no GitHub Pages
-  1) Crie um repositório público (ex.: braganca-bus-site)
-  2) Coloque este arquivo como index.html na raiz e faça push
-  3) Em Settings → Pages, selecione Deploy from a branch: main /(root) → Save
-  4) Aguarde o URL: https://SEU-USUARIO.github.io/braganca-bus-site/
-  5) Substitua PLAY_URL, DEV.* e os links do menu
-  -->
 </body>
 </html>
