@@ -6,115 +6,158 @@
   <meta name="description" content="Bragança Bus — app de horários e rotas de autocarros em Bragança" />
   <title>Bragança Bus — App de Autocarros</title>
   <style>
-    :root {
-      /* Paleta aquecida para harmonizar com a logo (dourado → vermelho) */
-      --bg: #eee3d9; /* fundo bege muito claro */
-      --card: #fffdfa; /* cartões em tom quase branco */
-      --muted: #7c6b55; /* texto secundário em marrom suave */
-      --text: #3e2f1d; /* texto principal castanho escuro */
-      --brand: #c4a562; /* dourado da logo */
-      --brand-2: #e0634e; /* vermelho da logo */
-      --ok: #22b574; /* verde de status harmonioso */
+    :root{
+      /* Paleta escura inspirada na logo (dourado → coral) */
+      --brand-start: #c6b06a;   /* dourado da coroa */
+      --brand-end:   #cf6d5f;   /* coral do logotipo */
+      --brand:       #cf6d5f;
+
+      --bg:   #0e0f12;          /* fundo base */
+      --card: #14161b;          /* cartões */
+      --fg:   #e9eef5;          /* texto principal */
+      --muted:#bfc7d1;          /* texto secundário */
+      --border:#242833;         /* linhas sutis */
+      --ok:#22b574;
+
+      --radius:16px;
+      --shadow:0 12px 30px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,255,255,.04);
     }
+
     * { box-sizing: border-box; }
     html, body { min-height: 100%; }
-    body {
-      margin: 0;
+    body{
+      margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
-      color: var(--text);
-      background: linear-gradient(180deg, #ecddc1 0%, #ebbda8 100% );
-      background-repeat: no-repeat;
-      background-size: 100% 100%;
-      line-height: 1.6;
+      color:var(--fg);
+      background:
+        radial-gradient(900px 600px at 85% -10%, rgba(207,109,95,.25), transparent 60%),
+        radial-gradient(1000px 650px at -10% 10%, rgba(198,176,106,.18), transparent 65%),
+        var(--bg);
+      background-repeat:no-repeat;
+      line-height:1.6;
     }
-    a { color: var(--brand-2); text-decoration: none; }
-    a:hover { text-decoration: underline; }
 
-    .container { width: min(1100px, 92%); margin: 0 auto; }
+    a{ color: var(--brand); text-decoration: none; }
+    a:hover{ text-decoration: underline; }
 
-    header {
-      position: sticky; top: 0; z-index: 20;
-      background: rgba(255,255,255,0.95);
-      border-bottom: 1px solid rgba(0,0,0,.05);
+    .container{ width:min(1100px,92%); margin:0 auto; }
+
+    /* Header */
+    header{
+      position:sticky; top:0; z-index:20;
+      backdrop-filter:saturate(160%) blur(10px);
+      background:rgba(14,15,18,.55);
+      border-bottom:1px solid var(--border);
     }
-    .nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; }
-    .logo { display: inline-flex; align-items: center; gap: .6rem; font-weight: 700; letter-spacing: .3px; }
-    .badge { display:inline-flex; width: 34px; height: 34px; border-radius: 10px; align-items:center; justify-content:center; background: linear-gradient(135deg, var(--brand), var(--brand-2)); box-shadow: 0 6px 20px rgba(79,134,255,.35); }
-    .nav a { color: var(--muted); margin-left: 18px; font-weight: 600; }
-    .nav a:hover { color: var(--text); }
+    .nav{ display:flex; align-items:center; justify-content:space-between; padding:14px 0; }
+    .logo{ display:inline-flex; align-items:center; gap:.6rem; font-weight:700; letter-spacing:.3px; }
+    nav a{ color:var(--muted); margin-left:18px; font-weight:600; padding:8px 10px; border-radius:10px; }
+    nav a:hover{ color:var(--fg); background:#1b1f27; text-decoration:none; }
 
-    .section_hero { padding-top: 120px;}
-    .hero {display: grid; grid-template-columns: 1.1fr .9fr; gap: 32px; align-items: center; padding: 0 0 28px; }
-    .hero h1 { font-size: clamp(28px, 4.2vw, 46px); line-height: 1.15; margin: 0 0 10px; letter-spacing: .2px; }
-    .lead { font-size: clamp(16px, 2.2vw, 19px); color: var(--muted); margin: 0 0 22px; }
+    /* Hero */
+    .section_hero{ padding-top:120px; }
+    .hero{ display:grid; grid-template-columns:1.1fr .9fr; gap:32px; align-items:center; padding:0 0 28px; }
+    .hero h1{ font-size:clamp(28px,4.2vw,46px); line-height:1.15; margin:0 0 10px; letter-spacing:.2px; }
+    .lead{ font-size:clamp(16px,2.2vw,19px); color:var(--muted); margin:0 0 22px; }
 
-    .cta { display: flex; gap: 12px; flex-wrap: wrap; }
-    .btn { display:inline-flex; align-items:center; gap:10px; padding: 12px 16px; border-radius: 12px; font-weight:700; border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.04); }
-    .btn.primary { background: linear-gradient(135deg, var(--brand), var(--brand-2)); color: #ffffff; border: none; box-shadow: 0 8px 24px rgba(192, 156, 122, 0.35); }
-    .btn:hover { transform: translateY(-1px); box-shadow: 0 8px 18px rgba(255,255,255,.06); }
+    .cta{ display:flex; gap:12px; flex-wrap:wrap; }
+    .btn{
+      display:inline-flex; align-items:center; gap:10px; padding:12px 16px; border-radius:12px;
+      font-weight:700; border:1px solid var(--border); background:#161922; color:var(--fg);
+      box-shadow:var(--shadow); transition:transform .15s ease, filter .15s ease;
+    }
+    .btn.primary{
+      background:linear-gradient(135deg, var(--brand-start), var(--brand-end));
+      color:#0f0f10; border:none; box-shadow:0 8px 24px rgba(192,156,122,.35);
+    }
+    .btn:hover{ transform:translateY(-1px); filter:brightness(1.05); text-decoration:none; }
 
-    .phone-frame{max-width:100%;border-radius:24px;background:#000000;padding:18px;box-shadow:0 2px 10px rgba(0,0,0,.06)}
-    .carousel{position:relative;aspect-ratio:9/19.5;overflow:hidden;border-radius:18px;background:#000}
-    .slide{position:absolute;inset:0;object-fit:cover;width:100%;height:100%;opacity:0;transition:opacity .4s ease}
+    /* Phone / carrossel */
+    .phone-frame{max-width:70%; width: 100%; justify-self: end; align-self: center; border-radius:24px; background:#000; padding:18px; border:1px solid #0f1117; box-shadow:
+      0 0 18px rgba(255,255,255,0.20),
+      0 12px 30px rgba(0,0,0,0.35),
+      inset 0 0 0 1px rgba(255,255,255,0.04); }
+    .carousel{position:relative; aspect-ratio:9/19.5; overflow:hidden; border-radius:18px; background:#000}
+    .slide{position:absolute; inset:0; object-fit:cover; width:100%; height:100%; opacity:0; transition:opacity .4s ease}
     .slide.active{opacity:1}
-    .cnav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.85);border:none;border-radius:999px;width:36px;height:36px;font-size:22px;line-height:36px;text-align:center;cursor:pointer}Horários e rotas de 
+    .cnav{
+      position:absolute; top:50%; transform:translateY(-50%);
+      background:rgba(255,255,255,.9); color:#0b0b0c; border:none; border-radius:999px;
+      width:36px; height:36px; font-size:22px; line-height:36px; text-align:center; cursor:pointer
+    }
     .cnav.prev{left:8px}
     .cnav.next{right:8px}
 
-    .features { display: grid; gap: 18px; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); margin: 40px 0 60px; }
-    .feat{ background:#fffdfa; border:1px solid rgba(0,0,0,.06); border-radius:14px; padding:16px; box-shadow:0 2px 10px rgba(0,0,0,.05);}
-    .feat h3 { margin: 8px 0 6px; font-size: 18px; }
-    .feat p { margin: 0; color: var(--muted); }
-    .feature-card { position: relative; background: #fff; border: 1px solid rgba(0, 0, 0, .06); border-radius: 16px; padding: 18px 16px 20px 16px; box-shadow: 0 6px 22px rgba(0, 0, 0, .06); transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease; }
-    .feature-card::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 4px; border-radius: 16px 16px 0 0; background: linear-gradient(90deg, var(--brand), var(--brand-2)); opacity: .85; }
-    .feature-card:hover { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(0, 0, 0, .10); border-color: rgba(0, 0, 0, .10); }
-    .f-icon { width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--brand), var(--brand-2)); color: #fff; box-shadow: 0 6px 18px rgba(224, 99, 78, .25); margin-bottom: 10px; }
-    .f-title { margin: 0 0 6px 0; font-size: 18px; font-weight: 800; letter-spacing: .2px; color: #2b200f; }
-    .f-desc { margin: 0; color: var(--muted); }
-
-    .section_download { padding-top: 150px;}
-    .download { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; align-items: center; margin: 60px 0; padding: 50px; background: hsla(36, 26%, 93%, 0.733); border: 1px solid rgba(255,255,255,.06); border-radius: 16px; }
-    .qr-wrap { display: grid; grid-template-columns: 240px 1fr; gap: 20px; align-items: center;}
-    .qr-hint { color: var(--muted); font-size: 20px; }
-    .stat { display:flex; align-items:center; gap:10px; color: #bfead0; }
-    .stat .dot { width:10px; height:10px; border-radius:999px; background: var(--ok); box-shadow: 0 0 0 4px rgba(34,197,94,.18); }
-
-    .section_privacy { padding-top: 70px;}
-    .privacy {  border-radius: 16px; padding: 28px; margin: 60px 0;  color: var(--text); background: hsla(36, 26%, 93%, 0.733); border: 1px solid rgba(255,255,255,.06); border-radius: 16px; }
-    .privacy h2 { color: var(--brand-2); margin-top: 0; }
-    .privacy h3 { margin-top: 22px; color: var(--brand); }
-    .privacy ul { margin-left: 20px; color: var(--muted); }
-    .privacy details { background: #eee3d9; border-radius: 10px; margin-top: 14px; padding: 14px 18px; border: 1px solid rgba(0,0,0,0.08); box-shadow: 0 2px 6px rgba(0,0,0,0.04); transition: all .2s ease; }
-    .privacy summary { font-weight: 700; font-size: 16px; color: var(--brand-2); cursor: pointer; list-style: none; }
-    .privacy summary::-webkit-details-marker { display: none; /* remove o triângulo padrão */ }
-    .privacy details[open] { box-shadow: 0 4px 10px rgba(0,0,0,0.08); }
-    .privacy details[open] summary { color: var(--brand); }
-    .privacy details p, .privacy details ul { margin-top: 10px; color: var(--text); }
-
-    .contact { padding: 40px 24px; margin: 60px 0; text-align: center; }
-    .contact h2 { color: var(--text); margin-top: 0;}
-    .contact-desc { color: var(--muted); margin-bottom: 24px; font-size: 18px;}
-    .contact-info p { margin: 6px 0; color: var(--text); }
-    .contact-info a { color: var(--brand-2); text-decoration: none; }
-    .contact-info a:hover { text-decoration: underline; }
-    .social-links { display: flex; justify-content: center; gap: 18px; margin-top: 24px; }
-    .social { display: flex; align-items: center; justify-content: center; width: 42px; height: 42px; border-radius: 50%; color: #fff; transition: transform .2s ease, opacity .2s ease;}
-
-    .social.wa { background: #25D366; }
-    .social.ig { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
-    .social.li { background: #0077b5; }
-    .social.gh { background: #24292e; }
-    .social:hover { transform: translateY(-3px); opacity: 0.9; }
-
-    footer { color: var(--muted); font-size: 14px; border-top: 1px solid rgba(255,255,255,.06); padding: 18px 0 40px; }
-
-    @media (max-width: 930px) {
-      .hero { grid-template-columns: 1fr; padding-top: 28px; }
-      .features { grid-template-columns: 1fr; }
-      .download { grid-template-columns: 1fr; }
-      .qr-wrap { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+    /* Features */
+    .features{ display:grid; gap:18px; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); margin:40px 0 60px; }
+    .feature-card{
+      position:relative; background:var(--card); border:1px solid var(--border); border-radius:16px;
+      padding:18px 16px 20px 16px; box-shadow:var(--shadow);
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
     }
+    .feature-card::before{
+      content:""; position:absolute; inset:0 0 auto 0; height:4px; border-radius:16px 16px 0 0;
+      background:linear-gradient(90deg, var(--brand-start), var(--brand-end)); opacity:.85;
+    }
+    .feature-card:hover{ transform:translateY(-4px); box-shadow:0 10px 28px rgba(0,0,0,.25); border-color:#2a2f3a; }
+    .f-icon{
+      width:40px; height:40px; border-radius:12px; display:flex; align-items:center; justify-content:center;
+      background:linear-gradient(135deg, var(--brand-start), var(--brand-end)); color:#0f0f10;
+      box-shadow:0 6px 18px rgba(224,99,78,.25); margin-bottom:10px;
+    }
+    .f-title{ margin:0 0 6px 0; font-size:18px; font-weight:800; letter-spacing:.2px; color:#ffffff; }
+    .f-desc{ margin:0; color:var(--muted); }
 
+    /* Download */
+    .section_download{ padding-top:150px; }
+    .download{
+      display:grid; grid-template-columns:1fr 1fr; gap:26px; align-items:center; margin:60px 0;
+      padding:50px; background:#0f1117; border:1px solid var(--border); border-radius:16px; box-shadow:var(--shadow);
+    }
+    .qr-wrap{ display:grid; grid-template-columns:240px 1fr; gap:20px; align-items:center; }
+    .qr-hint{ color:var(--muted); font-size:18px; }
+    .stat{ display:flex; align-items:center; gap:10px; color:#bfead0; }
+    .stat .dot{ width:10px; height:10px; border-radius:999px; background:var(--ok); box-shadow:0 0 0 4px rgba(34,197,94,.18); }
+
+    /* Privacidade */
+    .section_privacy{ padding-top:70px; }
+    .privacy{
+      color:var(--fg); background:#0f1117; border:1px solid var(--border); border-radius:16px;
+      padding:28px; margin:60px 0; box-shadow:var(--shadow);
+    }
+    .privacy h2{ color:var(--brand); margin-top:0; }
+    .privacy h3{ margin-top:22px; color:#ffd4c9; }
+    .privacy ul{ margin-left:20px; color:var(--muted); }
+    .privacy details{
+      background:#14161b; border-radius:10px; margin-top:14px; padding:14px 18px;
+      border:1px solid var(--border); box-shadow:0 2px 6px rgba(0,0,0,.18); transition:all .2s ease;
+    }
+    .privacy summary{ font-weight:700; font-size:16px; color:var(--brand); cursor:pointer; list-style:none; }
+    .privacy summary::-webkit-details-marker{ display:none; }
+    .privacy details[open]{ box-shadow:0 4px 10px rgba(0,0,0,.25); }
+    .privacy details[open] summary{ color:#ffd4c9; }
+    .privacy details p, .privacy details ul{ margin-top:10px; color:var(--fg); }
+
+    /* Contacto */
+    .contact{ padding:40px 24px; margin:60px 0; text-align:center; background:#0f1117; border:1px solid var(--border); border-radius:16px; box-shadow:var(--shadow); }
+    .contact h2{ color:#ffffff; margin-top:0; }
+    .contact-desc{ color:var(--muted); margin-bottom:24px; font-size:18px; }
+    .contact-info p{ margin:6px 0; color:var(--fg); }
+    .contact-info a{ color:#ffd4c9; }
+    .social-links{ display:flex; justify-content:center; gap:18px; margin-top:24px; }
+    .social{ display:flex; align-items:center; justify-content:center; width:42px; height:42px; border-radius:50%; color:#fff; transition: transform .2s ease, opacity .2s ease; border:1px solid rgba(255,255,255,.08); }
+    .social.wa{ background:#25D366; }
+    .social.ig{ background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
+    .social:hover{ transform:translateY(-3px); opacity:.9; }
+
+    footer{ text-align: center; color:#9aa3af; font-size:14px; border-top:1px solid var(--border); padding:18px 0 40px; }
+
+    @media (max-width:930px){
+      .hero{ grid-template-columns:1fr; padding-top:28px; }
+      .features{ grid-template-columns:1fr; }
+      .download{ grid-template-columns:1fr; }
+      .qr-wrap{ grid-template-columns:1fr; justify-items:center; text-align:center; }
+    }
   </style>
 </head>
 <body>
@@ -134,12 +177,10 @@
 
   <main class="container">
     <section class="section_hero" id="app">
-
       <div class="hero">
-
         <div>
           <h1>Horários e rotas de autocarros em Bragança no teu bolso.</h1>
-          <p class="lead">O <strong>Bragança Bus</strong> mostra linhas, paragens e previsão de chegada. Mapa em tempo real, pesquisa rápida e interface leve para o teu dia‑a‑dia.</p>
+          <p class="lead">O <strong>Bragança Bus</strong> mostra linhas, paragens e previsão de chegada. Mapa em tempo real, pesquisa rápida e interface leve para o teu dia-a-dia.</p>
 
           <div style="margin-top:16px; display:flex; gap:18px; flex-wrap:wrap; justify-content:center; width:100%; color:var(--muted); font-size:26px;">
             <span>Sem anúncios • Sem cadastro • Gratuito</span>
@@ -178,56 +219,54 @@
               <p class="f-desc">Fica por dentro das novidades da cidade.</p>
             </article>
           </div>
-
         </div>
 
         <div class="phone-frame">
           <div class="carousel" id="app-carousel">
             <img src="images/home.jpeg" class="slide active" alt="Home" />
+            <img src="images/news.jpeg" class="slide" alt="News" />
             <img src="images/info.jpeg" class="slide" alt="Info" />
             <img src="images/lines.jpeg" class="slide" alt="Lines" />
+            <img src="images/route.jpeg" class="slide" alt="Route" />
             <button class="cnav prev" aria-label="Anterior">‹</button>
             <button class="cnav next" aria-label="Seguinte">›</button>
           </div>
         </div>
 
       </div>
-      
     </section>
 
     <section class="section_download" id="download">
       <div class="download">
         <div>
-          <h1 style="margin:0 0 6px;">Faz já o download do Bragança Bus</h2>
-          <div style="margin-top:16px; display:flex; gap:18px; flex-wrap:wrap;  color:var(--muted); font-size:22px;">
+          <h1 style="margin:0 0 6px;">Faz já o download do Bragança Bus</h1>
+          <div style="margin-top:16px; display:flex; gap:18px; flex-wrap:wrap; color:var(--muted); font-size:18px;">
             <span>Sem anúncios • Sem cadastro • Gratuito</span>
           </div>
           <div style="margin-top:16px; gap:18px;">
-            <h3 style="margin:0 0 8px;">Disponível para:</h3> 
-            <ul style="margin:0; color:var(--muted); padding-left:18px;"> 
-              <li>Android</li> 
-              <li>IOS (em breve)</li> 
-            </ul> 
+            <h3 style="margin:0 0 8px;">Disponível para:</h3>
+            <ul style="margin:0; color:var(--muted); padding-left:18px;">
+              <li>Android</li>
+              <li>iOS (em breve)</li>
+            </ul>
           </div>
         </div>
 
-        <div class="qr-wrap"> 
-          <img id="qr" src="" alt="QR code para download na Google Play" width="240" height="240" style="border-radius:12px; background:#fff; padding:10px;" /> 
-          <div> 
-            <p class="qr-hint">Aponta a câmara para o QR code ou usa o botão abaixo para ir à loja.</p> 
-            <div class="cta" style="margin-top:12px;"> 
-              <a id="play-btn" class="btn primary" href="#" target="_blank" rel="noopener">Abrir na Google Play</a> 
-            </div> 
-          </div> 
-        </div> 
+        <div class="qr-wrap">
+          <img id="qr" src="" alt="QR code para download na Google Play" width="240" height="240" style="border-radius:12px; background:#fff; padding:10px;" />
+          <div>
+            <p class="qr-hint">Aponta a câmara para o QR code ou usa o botão abaixo para ir à loja.</p>
+            <div class="cta" style="margin-top:12px;">
+              <a id="play-btn" class="btn primary" href="#" target="_blank" rel="noopener">Abrir na Google Play</a>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
     <section class="section_privacy" id="privacidade">
-
-      <div class="privacy" >
-
-        <h1>Política de Privacidade — Aplicativo BragançaBus</h2>
+      <div class="privacy">
+        <h1>Política de Privacidade — Aplicativo BragançaBus</h1>
         <p><em>Última atualização: 1 de novembro de 2025</em></p>
 
         <p>O aplicativo <strong>BragançaBus</strong>, desenvolvido para o Município de Bragança, tem como objetivo disponibilizar informações sobre as linhas de transporte urbano, horários e posição estimada dos autocarros em tempo real.</p>
@@ -284,31 +323,30 @@
           <summary>7. Alterações</summary>
           <p>Esta política pode ser atualizada periodicamente. A versão mais recente estará sempre disponível aqui.</p>
         </details>
-      </section>
+      </div>
+    </section>
 
+    <section class="contact" id="contacto">
+      <h2>Contacto</h2>
+      <p class="contact-desc">Fala connosco para suporte, parcerias ou feedback sobre o BragançaBus.</p>
 
-      <section class="contact" id="contacto">
-        <h2>Contacto</h2>
-        <p class="contact-desc">Fala connosco para suporte, parcerias ou feedback sobre o BragançaBus.</p>
+      <div class="contact-info">
+        <p><strong>Email:</strong> <a href="mailto:bragancabus@gmail.com">bragancabus@gmail.com</a></p>
+      </div>
 
-        <div class="contact-info">
-          <p><strong>Email:</strong> <a href="mailto:bragancabus@gmail.com">bragancabus@gmail.com</a></p>
-        </div>
-
-        <div class="social-links">
-          <a href="https://wa.me/351920511056" target="_blank" aria-label="WhatsApp" class="social wa">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
-              <path d="M16.62 13.91c-.27-.14-1.61-.8-1.86-.89-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.14-.42-2.17-1.34-.8-.71-1.34-1.59-1.5-1.86-.16-.27-.02-.42.12-.55.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47-.16-.01-.34-.01-.52-.01s-.48.07-.73.34c-.25.27-.96.94-.96 2.29s.98 2.65 1.12 2.83c.14.18 1.93 2.95 4.68 4.14.65.28 1.16.45 1.56.58.65.21 1.24.18 1.7.11.52-.08 1.61-.66 1.84-1.29.23-.63.23-1.17.16-1.29-.07-.11-.25-.18-.52-.32zM12 2C6.48 2 2 6.48 2 12c0 1.97.58 3.8 1.58 5.33L2 22l4.8-1.55A9.93 9.93 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2z"/>
-            </svg>
-          </a>
-          <a href="https://instagram.com/bragancabus" target="_blank" aria-label="Instagram" class="social ig">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
-              <path d="M7 2C4.243 2 2 4.243 2 7v10c0 2.757 2.243 5 5 5h10c2.757 0 5-2.243 5-5V7c0-2.757-2.243-5-5-5H7zm0 2h10c1.654 0 3 1.346 3 3v10c0 1.654-1.346 3-3 3H7c-1.654 0-3-1.346-3-3V7c0-1.654 1.346-3 3-3zm5 2.9A5.106 5.106 0 0 0 6.9 10 5.106 5.106 0 0 0 12 15.1 5.106 5.106 0 0 0 17.1 10 5.106 5.106 0 0 0 12 6.9zm0 2A3.106 3.106 0 0 1 15.1 12 3.106 3.106 0 0 1 12 15.1 3.106 3.106 0 0 1 8.9 12 3.106 3.106 0 0 1 12 8.9zm4.5-3.4a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2z"/>
-            </svg>
-          </a>
-        </div>
-      </section>
-
+      <div class="social-links">
+        <a href="https://wa.me/351920511056" target="_blank" aria-label="WhatsApp" class="social wa">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+            <path d="M16.62 13.91c-.27-.14-1.61-.8-1.86-.89-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.14-.42-2.17-1.34-.8-.71-1.34-1.59-1.5-1.86-.16-.27-.02-.42.12-.55.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.05-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.45-.46-.61-.47-.16-.01-.34-.01-.52-.01s-.48.07-.73.34c-.25.27-.96.94-.96 2.29s.98 2.65 1.12 2.83c.14.18 1.93 2.95 4.68 4.14.65.28 1.16.45 1.56.58.65.21 1.24.18 1.7.11.52-.08 1.61-.66 1.84-1.29.23-.63.23-1.17.16-1.29-.07-.11-.25-.18-.52-.32zM12 2C6.48 2 2 6.48 2 12c0 1.97.58 3.8 1.58 5.33L2 22l4.8-1.55A9.93 9.93 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2z"/>
+          </svg>
+        </a>
+        <a href="https://instagram.com/bragancabus" target="_blank" aria-label="Instagram" class="social ig">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
+            <path d="M7 2C4.243 2 2 4.243 2 7v10c0 2.757 2.243 5 5 5h10c2.757 0 5-2.243 5-5V7c0-2.757-2.243-5-5-5H7zm0 2h10c1.654 0 3 1.346 3 3v10c0 1.654-1.346 3-3 3H7c-1.654 0-3-1.346-3-3V7c0-1.654 1.346-3 3-3zm5 2.9A5.106 5.106 0 0 0 6.9 10 5.106 5.106 0 0 0 12 15.1 5.106 5.106 0 0 0 17.1 10 5.106 5.106 0 0 0 12 6.9zm0 2A3.106 3.106 0 0 1 15.1 12 3.106 3.106 0 0 1 12 15.1 3.106 3.106 0 0 1 8.9 12 3.106 3.106 0 0 1 12 8.9zm4.5-3.4a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2z"/>
+          </svg>
+        </a>
+      </div>
+    </section>
   </main>
 
   <footer>
@@ -320,7 +358,7 @@
     // Coloque o URL real da Google Play assim que o app estiver publicado
     const PLAY_URL = "https://play.google.com/store/apps/details?id=SEU.PACOTE.ANDROID"; // TODO: substituir
 
-    // Dados do desenvolvedor (opcional) — actualize estes campos
+    // Dados do desenvolvedor (opcional)
     const DEV = {
       name: "Júlio Leal",
       email: "bragancabus@gmail.com",
@@ -338,7 +376,7 @@
     if (playTop) playTop.href = PLAY_URL;
     if (playBtn) playBtn.href = PLAY_URL;
 
-    // Gera QR via serviço público
+    // Gera QR
     const qr = document.getElementById('qr');
     const qrApi = (url) => `https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=${encodeURIComponent(url)}`;
     if (qr) qr.src = qrApi(PLAY_URL);
@@ -378,7 +416,6 @@
       play();
     }
 
-
     // Inject dados do dev
     const nameEl = document.getElementById('dev-name');
     const emailEl = document.getElementById('dev-email');
@@ -390,6 +427,5 @@
     if (siteEl) siteEl.textContent = DEV.site, siteEl.href = DEV.site;
     if (ghEl) ghEl.textContent = DEV.github.replace('https://', ''), ghEl.href = DEV.github;
   </script>
-
 </body>
 </html>
