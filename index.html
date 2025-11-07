@@ -54,6 +54,15 @@
     nav a{ color:var(--muted); margin-left:18px; font-weight:600; padding:8px 10px; border-radius:10px; }
     nav a:hover{ color:var(--fg); background:#1b1f27; text-decoration:none; }
 
+    /* estado padrão (desktop) */
+    .hamburger{
+      display:none; align-items:center; justify-content:center;
+      width:40px; height:40px; border-radius:10px; border:1px solid var(--border);
+      background:#1b1f27; color:var(--fg); font-size:22px; cursor:pointer;
+      box-shadow:var(--shadow);
+    }
+    .nav-menu{ display:flex; align-items:center; }
+
     /* Hero */
     .section_hero{ padding-top:120px; }
     .hero{ display:grid; grid-template-columns:1.1fr .9fr; gap:32px; align-items:center; padding:0 0 28px; }
@@ -157,23 +166,47 @@
       .features{ grid-template-columns:1fr; }
       .download{ grid-template-columns:1fr; }
       .qr-wrap{ grid-template-columns:1fr; justify-items:center; text-align:center; }
+      .hamburger{ display:inline-flex; }
+      .nav-menu{
+        position:absolute; right:4%; top:64px;
+        display:none; flex-direction:column; gap:6px;
+        background:#0f1117; border:1px solid var(--border); border-radius:12px;
+        padding:10px; box-shadow:var(--shadow);
+      }
+      .nav-menu.open{ display:flex; }
+      .nav-menu a{
+        margin:0; padding:10px 12px; border-radius:8px;
+        color:var(--fg); background:#14161b;
+      }
+      .nav-menu a:hover{ background:#1b1f27; }
+      .phone-frame{  justify-self: center; }
     }
+
   </style>
 </head>
 <body>
-  <header>
-    <div class="container nav">
-      <div class="logo">
-        <img src="images/logo_and_title.png" alt="Bragança Bus" style="height:72px; width:auto; border-radius:8px; display:block;" />
-      </div>
-      <nav>
-        <a href="#app">App</a>
-        <a href="#download">Download</a>
-        <a href="#privacidade">Privacidade</a>
-        <a href="#contacto">Contacto</a>
-      </nav>
+
+<!-- SUBSTITUA o bloco dentro de <header> pela versão abaixo -->
+<header>
+  <div class="container nav">
+    <div class="logo">
+      <img src="images/logo_and_title.png" alt="Bragança Bus" style="height:72px; width:auto; border-radius:8px; display:block;" />
     </div>
-  </header>
+
+    <!-- botão hamburger -->
+    <button class="hamburger" id="nav-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-menu">
+      ☰
+    </button>
+
+    <!-- menu -->
+    <nav id="nav-menu" class="nav-menu">
+      <a href="#app">App</a>
+      <a href="#download">Download</a>
+      <a href="#privacidade">Privacidade</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </div>
+</header>
 
   <main class="container">
     <section class="section_hero" id="app">
@@ -414,6 +447,22 @@
       carousel.addEventListener('mouseenter', stop);
       carousel.addEventListener('mouseleave', play);
       play();
+    }
+
+    const navToggle = document.getElementById('nav-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    if (navToggle && navMenu){
+      navToggle.addEventListener('click', (e)=>{
+        e.stopPropagation();
+        const open = navMenu.classList.toggle('open');
+        navToggle.setAttribute('aria-expanded', open);
+      });
+      document.addEventListener('click', (e)=>{
+        if (!navMenu.contains(e.target)) {
+          navMenu.classList.remove('open');
+          navToggle.setAttribute('aria-expanded', 'false');
+        }
+      });
     }
 
     // Inject dados do dev
