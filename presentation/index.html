@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="BragançaBus — Apresentação do projeto para a Câmara Municipal de Bragança" />
+  <title>BragançaBus — Apresentação</title>
+  <style>
+    :root {
+      --bg:           #0e0f12;
+      --card:         #14161b;
+      --fg:           #e9eef5;
+      --muted:        #bfc7d1;
+      --border:       #242833;
+      --brand-start:  #c6b06a;
+      --brand-end:    #cf6d5f;
+      --brand:        #cf6d5f;
+      --green:        #139a4b;
+      --ok:           #22b574;
+      --header-h:     56px;
+      --radius:       14px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html {
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+                   "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+      color: var(--fg);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+
+    /* ── Desktop layout: body = flex column, deck scrolls ── */
+    body {
+      height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* ═══════════════════════════════════════
+       HEADER
+    ═══════════════════════════════════════ */
+    .pres-header {
+      height: var(--header-h);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      background: rgba(14,15,18,.92);
+      backdrop-filter: saturate(160%) blur(12px);
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      z-index: 200;
+    }
+
+    .logo-link { display: flex; align-items: center; text-decoration: none; }
+    .logo-link img { height: 36px; width: auto; }
+
+    .header-mid {
+      position: absolute;
+      left: 50%; transform: translateX(-50%);
+      display: flex; align-items: center; gap: 14px;
+    }
+
+    .slide-counter {
+      font-size: 12px; font-weight: 700;
+      color: var(--muted); letter-spacing: .5px;
+      white-space: nowrap;
+    }
+
+    .header-nav { display: flex; gap: 6px; }
+
+    .nav-btn {
+      width: 34px; height: 34px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: #1b1f27;
+      color: var(--fg);
+      cursor: pointer;
+      font-size: 18px; line-height: 1;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .15s, border-color .15s;
+    }
+    .nav-btn:hover:not(:disabled) { background: #252b38; border-color: #3a4155; }
+    .nav-btn:disabled { opacity: .3; cursor: default; }
+
+    /* progress line */
+    .pres-progress {
+      position: absolute; bottom: 0; left: 0;
+      height: 2px; width: 0%;
+      background: linear-gradient(90deg, var(--brand-start), var(--brand-end));
+      transition: width .35s ease;
+    }
+
+    /* ═══════════════════════════════════════
+       DECK
+    ═══════════════════════════════════════ */
+    .deck {
+      flex: 1;
+      overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .deck::-webkit-scrollbar { display: none; }
+
+    /* ═══════════════════════════════════════
+       SLIDE BASE
+    ═══════════════════════════════════════ */
+    .slide {
+      height: calc(100dvh - var(--header-h));
+      scroll-snap-align: start;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── dot nav (right edge) ── */
+    .dot-nav {
+      position: fixed;
+      right: 14px; top: 50%;
+      transform: translateY(-50%);
+      display: flex; flex-direction: column; gap: 7px;
+      z-index: 300;
+    }
+    .dot {
+      width: 7px; height: 7px;
+      border-radius: 999px;
+      background: var(--border);
+      border: none; cursor: pointer; padding: 0;
+      transition: all .25s ease;
+    }
+    .dot.active { background: var(--brand); height: 22px; }
+    .dot:hover:not(.active) { background: var(--muted); }
+
+    /* ═══════════════════════════════════════
+       BACKGROUNDS
+    ═══════════════════════════════════════ */
+    .bg-hero {
+      background:
+        radial-gradient(900px 500px at 88% -5%,  rgba(207,109,95,.22), transparent 60%),
+        radial-gradient(800px 500px at -8% 110%,  rgba(198,176,106,.16), transparent 65%),
+        var(--bg);
+    }
+    .bg-dark  { background: #0f1117; }
+    .bg-navy  { background: linear-gradient(140deg, #08122a 0%, #132040 100%); }
+    .bg-divider {
+      background:
+        radial-gradient(600px 400px at 50% 50%, rgba(19,154,75,.12), transparent 70%),
+        linear-gradient(140deg, #080f20 0%, #0d1a35 100%);
+      align-items: center; justify-content: center; text-align: center;
+    }
+
+    /* ═══════════════════════════════════════
+       REUSABLE COMPONENTS
+    ═══════════════════════════════════════ */
+    .tag {
+      display: inline-block;
+      font-size: 10px; font-weight: 800;
+      letter-spacing: 1.2px; text-transform: uppercase;
+      border-radius: 999px; padding: 3px 12px;
+    }
+    .tag-green  { background: var(--green); color: #fff; }
+    .tag-outline { border: 1px solid var(--green); color: var(--green); background: transparent; }
+
+    .grad {
+      background: linear-gradient(90deg, var(--brand-start), var(--brand-end));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .section-eyebrow {
+      font-size: 10px; font-weight: 800; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--green); margin-bottom: 12px;
+    }
+
+    .section-h { font-size: clamp(22px, 2.8vw, 34px); font-weight: 800; line-height: 1.2; }
+    .section-sub { font-size: 14px; color: var(--muted); margin-top: 6px; }
+
+    /* phone frame */
+    .phone-frame {
+      border-radius: 22px; background: #000;
+      padding: 12px;
+      border: 1px solid #1a1d26;
+      box-shadow:
+        0 0 16px rgba(255,255,255,.1),
+        0 16px 40px rgba(0,0,0,.5),
+        inset 0 0 0 1px rgba(255,255,255,.04);
+    }
+    .phone-img {
+      width: 100%; border-radius: 12px;
+      display: block;
+      aspect-ratio: 9 / 19.5;
+      object-fit: cover;
+    }
+
+    /* slide footer label */
+    .slide-foot {
+      position: absolute; bottom: 12px; left: 50%;
+      transform: translateX(-50%);
+      font-size: 10px; letter-spacing: .5px;
+      color: rgba(255,255,255,.15);
+      white-space: nowrap;
+    }
+
+    /* ═══════════════════════════════════════
+       S0 — COVER
+    ═══════════════════════════════════════ */
+    .cover {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      align-items: center;
+      gap: 32px;
+      padding: 36px 5% 36px 6%;
+    }
+    .cover-title {
+      font-size: clamp(26px, 3.4vw, 46px);
+      font-weight: 800; line-height: 1.13;
+      letter-spacing: -.3px;
+      margin: 14px 0 12px;
+    }
+    .cover-lead  { font-size: clamp(13px, 1.4vw, 17px); color: var(--muted); margin-bottom: 24px; }
+    .cover-perks { font-size: 13px; color: var(--muted); }
+
+    .badges { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 24px; }
+    .badge {
+      display: flex; flex-direction: column; align-items: center;
+      background: rgba(255,255,255,.05);
+      border: 1px solid var(--border);
+      border-radius: 12px; padding: 10px 18px; min-width: 76px;
+    }
+    .badge-val { font-size: 20px; font-weight: 800; color: var(--green); line-height: 1; }
+    .badge-lbl { font-size: 9px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; margin-top: 3px; }
+
+    /* ═══════════════════════════════════════
+       S1 — DIVIDER (reused for S8)
+    ═══════════════════════════════════════ */
+    .divider-title { font-size: clamp(26px, 4vw, 52px); font-weight: 800; line-height: 1.15; margin-bottom: 14px; }
+    .divider-sub   { font-size: clamp(13px, 1.5vw, 17px); color: var(--muted); max-width: 540px; margin: 0 auto; }
+
+    /* ═══════════════════════════════════════
+       S2 — PAIN POINTS
+    ═══════════════════════════════════════ */
+    .pain-slide { padding: 30px 5%; gap: 20px; }
+    .pain-grid  { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; flex: 1; }
+
+    .pain-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px; display: flex; flex-direction: column; gap: 6px;
+      transition: border-color .2s;
+    }
+    .pain-card:hover { border-color: #3a4155; }
+    .pain-emoji { font-size: 26px; }
+    .pain-title { font-size: 15px; font-weight: 800; color: #fff; }
+    .pain-desc  { font-size: 12.5px; color: var(--muted); line-height: 1.55; }
+
+    /* ═══════════════════════════════════════
+       S3 — SOLUÇÃO OVERVIEW
+    ═══════════════════════════════════════ */
+    .overview {
+      display: grid; grid-template-columns: 1.15fr .85fr;
+      align-items: center; gap: 32px;
+      padding: 32px 4% 32px 6%;
+    }
+    .feat-list { display: flex; flex-direction: column; gap: 10px; margin-top: 18px; }
+    .feat-row  {
+      display: flex; align-items: flex-start; gap: 14px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid var(--border); border-radius: 12px;
+      padding: 11px 15px;
+    }
+    .feat-em   { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+    .feat-name { font-size: 13.5px; font-weight: 700; color: #fff; }
+    .feat-desc { font-size: 11.5px; color: var(--muted); margin-top: 1px; }
+
+    /* ═══════════════════════════════════════
+       S4–S7 — FEATURE SLIDES
+    ═══════════════════════════════════════ */
+    .feat-slide {
+      display: grid; grid-template-columns: 1.15fr .85fr;
+      align-items: center; gap: 32px;
+      padding: 32px 4% 32px 6%;
+    }
+    .feat-h2  { font-size: clamp(22px, 2.6vw, 36px); font-weight: 800; line-height: 1.18; margin: 10px 0 6px; }
+    .feat-sub { font-size: 14px; color: var(--muted); margin-bottom: 18px; }
+
+    .bullets { display: flex; flex-direction: column; gap: 9px; }
+    .bullet  {
+      display: flex; align-items: flex-start; gap: 12px;
+      background: rgba(255,255,255,.03);
+      border: 1px solid var(--border); border-radius: 10px;
+      padding: 9px 14px;
+    }
+    .b-em   { font-size: 15px; flex-shrink: 0; margin-top: 1px; }
+    .b-text { font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+
+    .resolve-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      margin-top: 14px;
+      background: rgba(19,154,75,.12);
+      border: 1px solid rgba(19,154,75,.35);
+      border-radius: 999px; padding: 4px 14px;
+      font-size: 11.5px; font-weight: 700; color: var(--green);
+    }
+
+    /* phone sizing in feature slides */
+    .feat-slide .phone-frame { max-width: 220px; justify-self: center; }
+
+    /* ═══════════════════════════════════════
+       S9 — BENEFÍCIOS
+    ═══════════════════════════════════════ */
+    .benefits-slide { padding: 28px 5%; gap: 0; }
+    .benefit-rows   { display: flex; flex-direction: column; gap: 12px; margin-top: 18px; flex: 1; }
+    .benefit-row {
+      display: flex; align-items: flex-start; gap: 16px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--green);
+      border-radius: var(--radius); padding: 12px 16px;
+      flex: 1;
+    }
+    .b-icon  { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
+    .b-title { font-size: 14px; font-weight: 800; color: #fff; margin-bottom: 4px; }
+    .b-desc  { font-size: 12px; color: var(--muted); line-height: 1.55; }
+
+    /* ═══════════════════════════════════════
+       S10 — CANAL RECLAMAÇÕES
+    ═══════════════════════════════════════ */
+    .complaints-slide { padding: 28px 5%; gap: 0; }
+    .compare-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 18px; flex: 1; margin-top: 18px;
+    }
+    .compare-col {
+      border-radius: var(--radius); padding: 20px;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .compare-col.before { background: rgba(255,255,255,.04); border: 1px solid var(--border); }
+    .compare-col.after  { background: rgba(19,154,75,.07);  border: 1px solid rgba(19,154,75,.28); }
+    .cmp-label { font-size: 10px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
+    .cmp-label.before { color: var(--muted); }
+    .cmp-label.after  { color: var(--green); }
+    .cmp-title { font-size: 16px; font-weight: 800; }
+    .cmp-item  { display: flex; align-items: flex-start; gap: 9px; font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+
+    /* ═══════════════════════════════════════
+       S11 — QR CODE
+    ═══════════════════════════════════════ */
+    .qr-slide { padding: 28px 5%; gap: 0; }
+    .qr-grid  {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 18px; flex: 1; margin-top: 16px;
+    }
+    .qr-col {
+      border-radius: var(--radius); padding: 18px;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .qr-col.nfc     { background: rgba(255,255,255,.04); border: 1px solid var(--border); }
+    .qr-col.digital { background: rgba(19,154,75,.07);  border: 1px solid rgba(19,154,75,.28); }
+    .qr-col-title { font-size: 14px; font-weight: 800; margin-bottom: 6px; }
+    .qr-item { display: flex; align-items: flex-start; gap: 8px; font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+    .savings-bar {
+      background: #0d1b3a;
+      border: 1px solid rgba(19,154,75,.28);
+      border-radius: 12px; padding: 12px 18px;
+      margin-top: 14px; flex-shrink: 0;
+      display: flex; flex-wrap: wrap; gap: 6px 22px; align-items: center;
+    }
+    .sav-stat { display: flex; align-items: center; gap: 5px; font-size: 12px; }
+    .sav-val  { font-weight: 800; color: var(--green); }
+    .sav-lbl  { color: var(--muted); }
+
+    /* ═══════════════════════════════════════
+       S12 — FUTURAS FUNCIONALIDADES
+    ═══════════════════════════════════════ */
+    .futures-slide { padding: 28px 5%; gap: 0; }
+    .futures-grid  {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 12px; flex: 1; margin-top: 18px;
+    }
+    .future-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px;
+      display: flex; flex-direction: column; gap: 6px;
+      transition: transform .18s, border-color .18s;
+    }
+    .future-card:hover { transform: translateY(-3px); border-color: rgba(19,154,75,.38); }
+    .fut-em    { font-size: 22px; }
+    .fut-title { font-size: 13px; font-weight: 800; color: #fff; }
+    .fut-desc  { font-size: 11.5px; color: var(--muted); line-height: 1.5; }
+
+    /* ═══════════════════════════════════════
+       MOBILE
+    ═══════════════════════════════════════ */
+    @media (max-width: 800px) {
+      body { height: auto; overflow: auto; display: block; }
+
+      .pres-header { position: sticky; top: 0; }
+
+      .deck {
+        overflow-y: visible;
+        scroll-snap-type: none;
+        height: auto;
+      }
+
+      .slide {
+        height: auto;
+        min-height: calc(100svh - var(--header-h));
+        overflow: visible;
+      }
+
+      .cover, .overview, .feat-slide {
+        grid-template-columns: 1fr;
+        padding: 28px 5%;
+      }
+
+      .feat-slide .phone-frame,
+      .cover .phone-frame,
+      .overview .phone-frame { max-width: 200px; margin: 0 auto; }
+
+      .pain-grid  { grid-template-columns: 1fr; }
+      .compare-grid { grid-template-columns: 1fr; }
+      .qr-grid    { grid-template-columns: 1fr; }
+      .futures-grid { grid-template-columns: 1fr 1fr; }
+
+      .dot-nav    { display: none; }
+      .header-mid { position: static; transform: none; }
+      .pres-header { gap: 8px; }
+    }
+
+    @media (max-width: 480px) {
+      .futures-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ HEADER ══════════════════════════════════════════════════════════ -->
+<header class="pres-header">
+  <a href="/" class="logo-link" aria-label="Voltar ao início">
+    <img src="../images/logo_and_title.png" alt="BragançaBus" />
+  </a>
+
+  <div class="header-mid">
+    <span class="slide-counter" id="counter">1 / 13</span>
+  </div>
+
+  <nav class="header-nav">
+    <button class="nav-btn" id="prev-btn" aria-label="Slide anterior" disabled>‹</button>
+    <button class="nav-btn" id="next-btn" aria-label="Próximo slide">›</button>
+  </nav>
+
+  <div class="pres-progress" id="progress"></div>
+</header>
+
+<!-- ══ DOT NAV ════════════════════════════════════════════════════════ -->
+<nav class="dot-nav" id="dot-nav" aria-label="Navegação de slides"></nav>
+
+<!-- ══ DECK ═══════════════════════════════════════════════════════════ -->
+<div class="deck" id="deck">
+
+  <!-- ─────────────────────────────────────────────
+       S0 · COVER
+  ───────────────────────────────────────────── -->
+  <section class="slide cover bg-hero" id="s0" data-label="Início">
+    <div>
+      <span class="tag tag-green">App móvel · Android · Gratuito</span>
+      <h1 class="cover-title">
+        Horários e rotas de autocarros<br>
+        <span class="grad">em Bragança no teu bolso.</span>
+      </h1>
+      <p class="cover-lead">
+        O <strong>BragançaBus</strong> mostra linhas, paragens e previsão de chegada em tempo real. Interface leve, sem cadastro e sem anúncios.
+      </p>
+      <p class="cover-perks">Sem anúncios &nbsp;·&nbsp; Sem cadastro &nbsp;·&nbsp; Gratuito</p>
+      <div class="badges">
+        <div class="badge"><span class="badge-val">3</span><span class="badge-lbl">Linhas</span></div>
+        <div class="badge"><span class="badge-val">24+</span><span class="badge-lbl">Paragens</span></div>
+        <div class="badge"><span class="badge-val">€0</span><span class="badge-lbl">Custo</span></div>
+        <div class="badge"><span class="badge-val">RT</span><span class="badge-lbl">Tempo real</span></div>
+      </div>
+    </div>
+    <div class="phone-frame" style="max-width:65%; justify-self:center;">
+      <img class="phone-img" src="../images/route.jpeg" alt="App BragançaBus — rastreamento em tempo real" />
+    </div>
+    <span class="slide-foot">BRAGANÇABUS · Apresentação</span>
+  </section>
+
+  <!-- ─────────────────────────────────────────────
+       S1 · DIVISOR — DORES
+  ───────────────────────────────────────────── -->
+  <section class="slide bg-divider" id="s1" data-label="As Dores">
+    <p class="section-eyebrow">Parte 1</p>
+    <h2 class="divider-title">As Dores dos<br><span class="grad">Utilizadores dos Autocarros</span></h2>
+    <p class="divider-sub">Os problemas reais que os passageiros enfrentam no dia-a-dia — e que o BragançaBus resolve.</p>
+    <span class="slide-foot">BRAGANÇABUS · Apresentação</span>
+  </section>
+
+  <!-- ─────────────────────────────────────────────
+       S2 · PAIN POINTS
+  ───────────────────────────────────────────── -->
+  <section class="slide pain-slide bg-dark" id="s2" data-label="Problemas">
+    <h2 class="section-h">O que os utilizadores perguntam todos os dias…</h2>
+    <div class="pain-grid">
+      <div class="pain-card">
+        <span class="pain-emoji">⏱️</span>
+        <p class="pain-title">Quando chega o autocarro?</p>
+        <p class="pain-desc">Sem informação em tempo real, os utilizadores chegam cedo à paragem e ficam à espera sem saber se o autocarro já passou ou ainda vem.</p>
+      </div>
+      <div class="pain-card">
+        <span class="pain-emoji">🗺️</span>
+        <p class="pain-title">Qual é o percurso da minha linha?</p>
+        <p class="pain-desc">Os mapas de rotas estão em papel ou dispersos no site da Câmara. Não é claro quais paragens existem nem em que ordem o autocarro as percorre.</p>
+      </div>
+      <div class="pain-card">
+        <span class="pain-emoji">📰</span>
+        <p class="pain-title">O que se passa na cidade?</p>
+        <p class="pain-desc">Eventos e notícias municipais chegam tarde ou perdem-se nas redes sociais. Quem usa o autocarro raramente visita o site da Câmara.</p>
+      </div>
+      <div class="pain-card">
+        <span class="pain-emoji">💳</span>
+        <p class="pain-title">Como funciona o Cartão Munícipe?</p>
+        <p class="pain-desc">A informação sobre vantagens, adesão e utilização está dispersa. Muitos potenciais aderentes desistem antes de concluir o processo.</p>
+      </div>
+    </div>
+    <span class="slide-foot">BRAGANÇABUS · Apresentação</span>
+  </section>
+
+  <!-- ─────────────────────────────────────────────
+       S3 · VISÃO GERAL DA SOLUÇÃO
+  ───────────────────────────────────────────── -->
+  <section class="slide overview bg-hero" id="s3" data-label="A Solução">
+    <div>
+      <span class="tag tag-green">A Solução</span>
+      <h2 style="font-size:clamp(22px,2.6vw,38px);font-weight:800;line-height:1.18;margin:12px 0 6px;">
+        Uma app que responde<br>a todas essas questões.
+      </h2>
+      <p style="color:var(--muted);font-size:14px;">Disponível gratuitamente na Google Play Store.</p>
+      <div class="feat-list">
+        <div class="feat-row">
+          <span class="feat-em">📍</span>
+          <div><p class="feat-name">Rastreamento em Tempo Real</p><p class="feat-desc">Posição do autocarro atualizada a cada 5 segundos</p></div>
+        </div>
+        <div class="feat-row">
+          <span class="feat-em">🗺️</span>
+          <div><p class="feat-name">Mapa de Rotas Interativo</p><p class="feat-desc">3 linhas, zoom livre, filtros individuais por linha</p></div>
+        </div>
+        <div class="feat-row">
+          <span class="feat-em">📰</span>
+          <div><p class="feat-name">Notícias & Eventos da Cidade</p><p class="feat-desc">Feed automático sincronizado com o site da Câmara Municipal</p></div>
+        </div>
+        <div class="feat-row">
+          <span class="feat-em">💳</span>
+          <div><p class="feat-name">Cartão Munícipe</p><p class="feat-desc">Informação, FAQ e acesso direto ao formulário de adesão</p></div>
+        </div>
+        <div class="feat-row">
+          <span class="feat-em">✅</span>
+          <div><p class="feat-name">Sem anúncios · Sem cadastro · Gratuito</p><p class="feat-desc">Android disponível — iOS em breve</p></div>
+        </div>
+      </div>
+    </div>
+    <div class="phone-frame" style="max-width:65%;justify-self:center;">
+      <img class="phone-img" src="../images/home.jpeg" alt="Ecrã inicial da app" />
+    </div>
+    <span class="slide-foot">BRAGANÇABUS · Apresentação</span>
+  </section>
+
+  <!-- ─────────────────────────────────────────────
+       S4 · FUNCIONALIDADE: TEMPO REAL
+  ───────────────────────────────────────────── -->
+  <section class="slide feat-slide bg-hero" id="s4" data-label="Tempo Real">
+    <div>
+      <span class="tag tag-outline">Funcionalidade 1</span>
+      <h2 class="feat-h2">Rastreamento<br>em Tempo Real</h2>
+      <p class="feat-sub">Sabe onde está o autocarro antes de sair de casa.</p>
+      <div class="bullets">
+        <div class="bullet"><span class="b-em">⏱️</span><span class="b-text">Posição do autocarro atualizada a cada 5 segundos</span></div>
+        <div class="bullet"><span class="b-em">📍</span><span class="b-text">Estimativa baseada nos dados reais de chegada às paragens</span></div>
+        <div class="bullet"><span class="b-em">🔔</span><span class="b-text">Tempo de chegada visível ao tocar em qualquer paragem no mapa</span></div>
+        <div class="bullet"><span class="b-em">🔋</span><span class="b-text">Não drena a bateria — não requer GPS ativo do utilizador</span></div>
+      </div>
+      <div class="resolve-badge">✅ Resolve: "Quando chega o autocarro?"</div>
+    </div>
+    <div class="phone-frame">
+      <img class="phone-img" src="../images/route.jpeg" alt="Rastreamento em tempo real" />
+    </div>
+    <span class="slide-foot">BRAGANÇABUS · Apresentação</span>
+  </section>
+
+  <!-- ─────────────────────────────────────────────
+       S5 · FUNCIONALIDADE: MAPA
+  ───────────────────────────────────────────── -->
+  <section class="slide feat-slide bg-hero" id="s5" data-label="Mapa de Rotas">
+    <div>
+      <span class="tag tag-outline">Funcionalidade 2</span>
+      <h2 class="feat-h2">Mapa de Rotas<br>& Paragens</h2>
+      <p class="feat-sub">Percursos completos das 3 linhas urbanas num único ecrã.</p>
+      <div class="bullets">
+        <div class="bullet"><span class="b-em">🗺️</span><span class="b-text">Mapa interativo com zoom e pan livres (pinch & pan)</span></div>
+        <div class="bullet"><span class="b-em">🎨</span><span class="b-text">Linhas U1, U2 e U3 com filtros individuais por cor</span></div>
+        <div class="bullet"><span class="b-em">🚏</span><span class="b-text">Lista completa de paragens com horários de funcionamento</span></div>
+        <div class="bullet"><span class="b-em">📋</span><span class="b-text">Paragens organizadas por linha em menus expansíveis</span></div>
+      </div>
+      <div class="resolve-badge">✅ Resolve: "Qual é o percurso da minha linha?"</div>
+    </div>
+    <div class="phone-frame">
+      <img class="phone-img" src="../images/info.jpeg" alt="Mapa de rotas interativo" />
+    </div>
+    <span class="slide-foot">BRAGANÇABUS · Apresentação</span>
+  </section>
+
+  <!-- ─────────────────────────────────────────────
+       S6 · FUNCIONALIDADE: NOTÍCIAS
+  ───────────────────────────────────────────── -->
+  <section class="slide feat-slide bg-hero" id="s6" data-label="Notícias & Eventos">
+    <div>
+      <span class="tag tag-outline">Funcionalidade 3</span>
+      <h2 class="feat-h2">Notícias & Eventos<br>da Cidade</h2>
+      <p class="feat-sub">Conteúdo da Câmara Municipal sempre atualizado, sem esforço.</p>
+      <div class="bullets">
+        <div class="bullet"><span class="b-em">📰</span><span class="b-text">Feed automático com as últimas notícias do município</span></div>
+        <div class="bullet"><span class="b-em">🎭</span><span class="b-text">Carrossel de eventos em destaque no topo da página</span></div>
+        <div class="bullet"><span class="b-em">🔄</span><span class="b-text">Sincronizado automaticamente com o site oficial da CM Bragança</span></div>
+        <div class="bullet"><span class="b-em">📲</span><span class="b-text">Cidadão informado sem precisar de visitar o site</span></div>
+      </div>
+      <div class="resolve-badge">✅ Resolve: "O que se passa na cidade?"</div>
+    </div>
+    <div class="phone-frame">
+      <img class="phone-img" src="../images/news.jpeg" alt="Feed de notícias e eventos" />
+    </div>
+    <span class="slide-foot">BRAGANÇABUS · Apresentação</span>
+  </section>
+
+  <!-- ─────────────────────────────────────────────
+       S7 · FUNCIONALIDADE: CARTÃO MUNÍCIPE
+  ───────────────────────────────────────────── -->
+  <section class="slide feat-slide bg-hero" id="s7" data-label="Cartão Munícipe">
+    <div>
+      <span class="tag tag-outline">Funcionalidade 4</span>
+      <h2 class="feat-h2">Cartão Munícipe<br>na App</h2>
+      <p class="feat-sub">Informação clara sobre vantagens, adesão e perguntas frequentes.</p>
+      <div class="bullets">
+        <div class="bullet"><span class="b-em">💳</span><span class="b-text">Explicação detalhada das vantagens do Cartão Munícipe</span></div>
+        <div class="bullet"><span class="b-em">📋</span><span class="b-text">Guia passo-a-passo para aderir ao cartão</span></div>
+        <div class="bullet"><span class="b-em">❓</span><span class="b-text">Perguntas frequentes respondidas diretamente na app</span></div>
+        <div class="bullet"><span class="b-em">🔗</span><span class="b-text">Acesso direto ao formulário de adesão no site da Câmara</span></div>
+      </div>
+      <div class="resolve-badge">✅ Resolve: "Como funciona o Cartão Munícipe?"</div>
+    </div>
+    <div class="phone-frame">
+      <img class="phone-img" src="../images/home.jpeg" alt="Cartão Munícipe na app" />
+    </div>
+    <span class="slide-foot">BRAGANÇABUS · Apresentação</span>
+  </section>
+
+  <!-- ─────────────────────────────────────────────
+       S8 · DIVISOR — CÂMARA
+  ───────────────────────────────────────────── -->
+  <section class="slide bg-divider" id="s8" data-label="Câmara Municipal">
+    <p class="section-eyebrow">Parte 2</p>
+    <h2 class="divider-title">Benefícios para a<br><span class="grad">Câmara Municipal</span></h2>
+    <p class="divider-sub">Como o BragançaBus serve os objetivos estratégicos do município de Bragança.</p>
+    <span class="slide-foot">BRAGANÇABUS · Apresentação</span>
+  </section>
+
+  <!-- ─────────────────────────────────────────────
+       S9 · BENEFÍCIOS
+  ───────────────────────────────────────────── -->
+  <section class="slide benefits-slide bg-dark" id="s9" data-label="Benefícios">
+    <h2 class="section-h">Visibilidade Digital e Comunicação com o Cidadão</h2>
+    <p class="section-sub">Quatro impactos diretos para o município</p>
+    <div class="benefit-rows">
+      <div class="benefit-row">
+        <span class="b-icon">🏙️</span>
+        <div>
+          <p class="b-title">Smart City & Fundos Europeus</p>
+          <p class="b-desc">Posiciona Bragança como município moderno com investimento em mobilidade inteligente — argumento relevante em candidaturas a fundos europeus (FEDER, Horizonte Europa).</p>
+        </div>
+      </div>
+      <div class="benefit-row">
+        <span class="b-icon">📡</span>
+        <div>
+          <p class="b-title">Canal Direto com o Cidadão</p>
+          <p class="b-desc">Notícias e eventos chegam ao telemóvel dos cidadãos sem depender das redes sociais. Conteúdo sincronizado automaticamente com o site oficial da Câmara.</p>
+        </div>
+      </div>
+      <div class="benefit-row">
+        <span class="b-icon">🎯</span>
+        <div>
+          <p class="b-title">Comunicação Segmentada por Perfil</p>
+          <p class="b-desc">Com um futuro perfil de utilizador (idade, freguesia, tipo), cada cidadão recebe conteúdo relevante — um evento juvenil para jovens, uma iniciativa sénior para o público certo — sem custo adicional.</p>
+        </div>
+      </div>
+      <div class="benefit-row">
+        <span class="b-icon">📊</span>
+        <div>
+          <p class="b-title">Dados Reais de Utilização</p>
+          <p class="b-desc">Telemetria anónima revela padrões reais: horários de pico, linhas mais consultadas, ecrãs mais vistos. Útil em relatórios de atividade e decisões de planeamento.</p>
+        </div>
+      </div>
+    </div>
+    <span class="slide-foot">BRAGANÇABUS · Apresentação</span>
+  </section>
+
+  <!-- ─────────────────────────────────────────────
+       S10 · CANAL DE RECLAMAÇÕES
+  ───────────────────────────────────────────── -->
+  <section class="slide complaints-slide bg-dark" id="s10" data-label="Canal de Comunicação">
+    <h2 class="section-h">Canal de Comunicação Direta com os Utilizadores</h2>
+    <p class="section-sub">Reclamações, sugestões e ocorrências — organizadas e com contexto</p>
+    <div class="compare-grid">
+      <div class="compare-col before">
+        <p class="cmp-label before">😤 Atualmente</p>
+        <p class="cmp-title" style="color:var(--muted);">Sem canal estruturado</p>
+        <div class="cmp-item"><span>📞</span><span>Chamadas dispersas, sem registo sistemático</span></div>
+        <div class="cmp-item"><span>📧</span><span>Emails avulsos sem contexto sobre a situação</span></div>
+        <div class="cmp-item"><span>📱</span><span>Comentários nas redes sociais difíceis de gerir</span></div>
+        <div class="cmp-item"><span>❌</span><span>Sem dados sobre a linha, paragem ou horário afetado</span></div>
+        <div class="cmp-item"><span>⏳</span><span>Triagem e resposta ineficientes</span></div>
+      </div>
+      <div class="compare-col after">
+        <p class="cmp-label after">✅ Com o BragançaBus</p>
+        <p class="cmp-title" style="color:#fff;">Canal integrado na app</p>
+        <div class="cmp-item"><span>📋</span><span>Mensagens organizadas com dados contextuais automáticos</span></div>
+        <div class="cmp-item"><span>📍</span><span>Linha, paragem e horário registados automaticamente</span></div>
+        <div class="cmp-item"><span>🔔</span><span>Notificação ao utilizador quando há resposta</span></div>
+        <div class="cmp-item"><span>📊</span><span>Painel de ocorrências para os serviços municipais</span></div>
+        <div class="cmp-item"><span>🏆</span><span>Demonstra abertura e modernidade do município</span></div>
+      </div>
+    </div>
+    <span class="slide-foot">BRAGANÇABUS · Apresentação</span>
+  </section>
+
+  <!-- ─────────────────────────────────────────────
+       S11 · QR CODE VS NFC
+  ───────────────────────────────────────────── -->
+  <section class="slide qr-slide bg-dark" id="s11" data-label="QR Code vs NFC">
+    <h2 class="section-h">QR Code Digital — Substituição do Cartão NFC</h2>
+    <p class="section-sub">Eliminar o cartão plástico com chip NFC — poupança económica e impacto ambiental</p>
+    <div class="qr-grid">
+      <div class="qr-col nfc">
+        <p class="qr-col-title">💳 Sistema Atual (NFC físico)</p>
+        <div class="qr-item"><span>•</span><span>Cartão plástico com chip NFC</span></div>
+        <div class="qr-item"><span>•</span><span>Custo de produção: €4 – €8 por cartão</span></div>
+        <div class="qr-item"><span>•</span><span>Deslocação presencial para levantamento</span></div>
+        <div class="qr-item"><span>•</span><span>Segunda via necessária em caso de perda ou dano</span></div>
+        <div class="qr-item"><span>•</span><span>PVC não biodegradável — 450+ anos para decompor</span></div>
+        <div class="qr-item"><span>•</span><span>Custo administrativo de emissão por cada cartão</span></div>
+      </div>
+      <div class="qr-col digital">
+        <p class="qr-col-title" style="color:var(--green);">📱 Com o BragançaBus (QR Code)</p>
+        <div class="qr-item"><span style="color:var(--green);">✓</span><span>QR Code no telemóvel — sempre disponível</span></div>
+        <div class="qr-item"><span style="color:var(--green);">✓</span><span>Custo de emissão: €0</span></div>
+        <div class="qr-item"><span style="color:var(--green);">✓</span><span>Ativação instantânea diretamente na app</span></div>
+        <div class="qr-item"><span style="color:var(--green);">✓</span><span>Nunca se perde nem se danifica</span></div>
+        <div class="qr-item"><span style="color:var(--green);">✓</span><span>Zero plástico, zero resíduos</span></div>
+        <div class="qr-item"><span style="color:var(--green);">✓</span><span>Zero intervenção administrativa por emissão</span></div>
+      </div>
+    </div>
+    <div class="savings-bar">
+      <span style="font-size:11.5px;font-weight:800;color:#fff;">📊 Estimativa anual (~2.500 titulares · 18% de renovação/ano):</span>
+      <span class="sav-stat"><span class="sav-val">€2.700–€5.400</span><span class="sav-lbl">poupança em cartões</span></span>
+      <span class="sav-stat"><span class="sav-val">€4.500–€9.000</span><span class="sav-lbl">poupança administrativa</span></span>
+      <span class="sav-stat"><span class="sav-val">~80 kg CO₂</span><span class="sav-lbl">evitado/ano</span></span>
+      <span class="sav-stat"><span class="sav-val">2,25 kg</span><span class="sav-lbl">PVC eliminado/ano</span></span>
+    </div>
+    <span class="slide-foot">BRAGANÇABUS · Apresentação</span>
+  </section>
+
+  <!-- ─────────────────────────────────────────────
+       S12 · FUTURAS FUNCIONALIDADES
+  ───────────────────────────────────────────── -->
+  <section class="slide futures-slide bg-hero" id="s12" data-label="Roadmap">
+    <h2 class="section-h">Futuras Funcionalidades — Roadmap</h2>
+    <p class="section-sub">Planeadas para desenvolvimento após acordo com a Câmara Municipal</p>
+    <div class="futures-grid">
+      <div class="future-card">
+        <span class="fut-em">🔔</span>
+        <p class="fut-title">Notificações Push</p>
+        <p class="fut-desc">Alertas de perturbações no serviço, eventos municipais e informações urgentes em tempo real</p>
+      </div>
+      <div class="future-card">
+        <span class="fut-em">📱</span>
+        <p class="fut-title">Versão iOS</p>
+        <p class="fut-desc">Expansão a todos os utilizadores, independentemente do dispositivo</p>
+      </div>
+      <div class="future-card">
+        <span class="fut-em">🌐</span>
+        <p class="fut-title">Multilingue</p>
+        <p class="fut-desc">Português, Espanhol e Inglês — relevante pela proximidade com Espanha</p>
+      </div>
+      <div class="future-card">
+        <span class="fut-em">👤</span>
+        <p class="fut-title">Perfil de Utilizador</p>
+        <p class="fut-desc">Comunicação segmentada por idade, freguesia e tipo de utilizador</p>
+      </div>
+      <div class="future-card">
+        <span class="fut-em">💳</span>
+        <p class="fut-title">QR Code Cartão Munícipe</p>
+        <p class="fut-desc">Identificação digital que substitui o cartão plástico NFC, eliminando custos e resíduos</p>
+      </div>
+      <div class="future-card">
+        <span class="fut-em">💬</span>
+        <p class="fut-title">Canal de Reclamações</p>
+        <p class="fut-desc">Comunicação direta com os serviços municipais, organizada e com contexto de linha e paragem</p>
+      </div>
+    </div>
+    <span class="slide-foot">BRAGANÇABUS · Apresentação</span>
+  </section>
+
+</div><!-- /deck -->
+
+<script>
+  const deck    = document.getElementById('deck');
+  const slides  = [...document.querySelectorAll('.slide')];
+  const counter = document.getElementById('counter');
+  const bar     = document.getElementById('progress');
+  const prevBtn = document.getElementById('prev-btn');
+  const nextBtn = document.getElementById('next-btn');
+  const dotNav  = document.getElementById('dot-nav');
+  const N = slides.length;
+  let current = 0;
+
+  // Build dots
+  slides.forEach((sl, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'dot' + (i === 0 ? ' active' : '');
+    btn.title = sl.dataset.label || `Slide ${i + 1}`;
+    btn.setAttribute('aria-label', `Slide ${i + 1}${sl.dataset.label ? ' — ' + sl.dataset.label : ''}`);
+    btn.addEventListener('click', () => goTo(i));
+    dotNav.appendChild(btn);
+  });
+
+  function getDots() { return [...dotNav.querySelectorAll('.dot')]; }
+
+  function update(idx) {
+    current = Math.max(0, Math.min(N - 1, idx));
+    counter.textContent = `${current + 1} / ${N}`;
+    bar.style.width = `${((current + 1) / N) * 100}%`;
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === N - 1;
+    getDots().forEach((d, i) => d.classList.toggle('active', i === current));
+  }
+
+  function goTo(idx) {
+    idx = Math.max(0, Math.min(N - 1, idx));
+    slides[idx].scrollIntoView({ behavior: 'smooth' });
+    update(idx);
+  }
+
+  prevBtn.addEventListener('click', () => goTo(current - 1));
+  nextBtn.addEventListener('click', () => goTo(current + 1));
+
+  // Keyboard navigation
+  document.addEventListener('keydown', e => {
+    if (['ArrowDown', 'ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); goTo(current + 1); }
+    if (['ArrowUp',   'ArrowLeft',  'PageUp'        ].includes(e.key)) { e.preventDefault(); goTo(current - 1); }
+  });
+
+  // IntersectionObserver syncs current slide on scroll
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && entry.intersectionRatio >= 0.55) {
+        const idx = slides.indexOf(entry.target);
+        if (idx !== -1 && idx !== current) update(idx);
+      }
+    });
+  }, { root: deck, threshold: 0.55 });
+  slides.forEach(sl => io.observe(sl));
+
+  // Touch swipe
+  let ty = 0;
+  deck.addEventListener('touchstart', e => { ty = e.touches[0].clientY; }, { passive: true });
+  deck.addEventListener('touchend',   e => {
+    const d = ty - e.changedTouches[0].clientY;
+    if (Math.abs(d) > 48) goTo(d > 0 ? current + 1 : current - 1);
+  }, { passive: true });
+
+  update(0);
+</script>
+</body>
+</html>
