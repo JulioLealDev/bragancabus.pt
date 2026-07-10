@@ -34,6 +34,7 @@
     /* ── Desktop layout: body = flex column, deck scrolls ── */
     body {
       height: 100dvh;
+      height: var(--real-vh, 100dvh);
       display: flex;
       flex-direction: column;
       overflow: hidden;
@@ -113,6 +114,7 @@
     ═══════════════════════════════════════ */
     .slide {
       height: calc(100dvh - var(--header-h));
+      height: calc(var(--real-vh, 100dvh) - var(--header-h));
       scroll-snap-align: start;
       overflow: hidden;
       position: relative;
@@ -983,6 +985,14 @@
 </div><!-- /deck -->
 
 <script>
+  // Safari/iOS fix: window.innerHeight gives the true visible height
+  function fixVH() {
+    document.documentElement.style.setProperty('--real-vh', window.innerHeight + 'px');
+  }
+  fixVH();
+  window.addEventListener('resize', fixVH);
+  window.addEventListener('orientationchange', () => setTimeout(fixVH, 300));
+
   const deck    = document.getElementById('deck');
   const slides  = [...document.querySelectorAll('.slide')];
   const counter = document.getElementById('counter');
