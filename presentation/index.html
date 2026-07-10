@@ -238,13 +238,71 @@
     .badge-lbl { font-size: 9px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; margin-top: 3px; }
 
     /* ═══════════════════════════════════════
-       S1 — DIVIDER (reused for S8)
+       S1 — MAIN PAIN
     ═══════════════════════════════════════ */
-    .divider-title { font-size: clamp(26px, 4vw, 52px); font-weight: 800; line-height: 1.15; margin-bottom: 14px; }
-    .divider-sub   { font-size: clamp(13px, 1.5vw, 17px); color: var(--muted); max-width: 540px; margin: 0 auto; }
+    .pain-hero {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      padding: 40px 6%;
+      align-items: center;
+    }
+    .pain-main-title {
+      font-size: clamp(26px, 3.4vw, 50px);
+      font-weight: 800; line-height: 1.1;
+      letter-spacing: -.5px;
+      margin: 14px 0 16px; color: #fff;
+    }
+    .pain-main-sub { font-size: 20px; color: var(--muted); line-height: 1.6; margin-bottom: 28px; }
+    .who-depends   { display: flex; gap: 12px; flex-wrap: wrap; }
+    .who-card {
+      background: rgba(255,255,255,.05);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 18px;
+      display: flex; flex-direction: column; gap: 2px;
+    }
+    .who-num {
+      font-size: 22px; font-weight: 800;
+      background: linear-gradient(90deg, var(--brand-start), var(--brand-end));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .who-label   { font-size: 15px; color: var(--muted); letter-spacing: .3px; }
+    .who-source  { font-size: 12px; color: rgba(191,199,209,.45); margin-top: 2px; }
+
+    #s10 .who-card, #s10b .who-card   { align-items: center; }
+    #s10 .who-num,  #s10b .who-num    { font-size: 48px; display: block; text-align: center; line-height: 1; }
+    #s10 .who-label, #s10b .who-label { text-align: center; }
+    .calc-note {
+      background: rgba(255,255,255,.03);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .calc-note-title { font-size: 11px; font-weight: 800; color: var(--muted); margin-bottom: 4px; letter-spacing: .3px; }
+    .calc-note p { font-size: 11px; color: rgba(191,199,209,.6); line-height: 1.5; }
+    .calc-note strong { color: var(--fg); }
+    .calc-note em { color: rgba(191,199,209,.4); font-style: normal; }
+    .pain-hero-right { display: flex; flex-direction: column; gap: 14px; }
+    .pain-consequences-label {
+      font-size: 14px; font-weight: 800;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--brand); margin-bottom: 4px;
+    }
+    .pain-consequence {
+      display: flex; gap: 16px; align-items: flex-start;
+      background: rgba(255,255,255,.03);
+      border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 16px;
+    }
+    .pain-con-icon  { font-size: 28px; line-height: 1; flex-shrink: 0; }
+    .pain-con-title { font-size: clamp(15px, 1.5vw, 18px); font-weight: 700; color: #fff; }
+    .pain-con-desc  { font-size: 12.5px; color: var(--muted); line-height: 1.55; }
 
     /* ═══════════════════════════════════════
-       S2 — PAIN POINTS
+       (old pain-card — kept for legacy refs)
     ═══════════════════════════════════════ */
     .pain-slide { padding: 30px 5%; gap: 20px; }
     .pain-grid  { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; flex: 1; }
@@ -276,9 +334,9 @@
       border: 1px solid var(--border); border-radius: 12px;
       padding: 11px 15px;
     }
-    .feat-em   { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
-    .feat-name { font-size: 13.5px; font-weight: 700; color: #fff; }
-    .feat-desc { font-size: 11.5px; color: var(--muted); margin-top: 1px; }
+    .feat-em   { font-size: 25px; flex-shrink: 0; margin-top: 1px; }
+    .feat-name { font-size: 20px; font-weight: 700; color: #fff; }
+    /*.feat-desc { font-size: 11.5px; color: var(--muted); margin-top: 1px; }
 
     /* ═══════════════════════════════════════
        S4–S7 — FEATURE SLIDES
@@ -289,7 +347,7 @@
       padding: 32px 4% 32px 6%;
     }
     .feat-h2  { font-size: clamp(22px, 2.6vw, 36px); font-weight: 800; line-height: 1.18; margin: 10px 0 6px; }
-    .feat-sub { font-size: 14px; color: var(--muted); margin-bottom: 18px; }
+    .feat-sub { font-size: 18px; color: var(--muted); margin-bottom: 18px; }
 
     .bullets { display: flex; flex-direction: column; gap: 9px; }
     .bullet  {
@@ -307,7 +365,7 @@
       background: rgba(19,154,75,.12);
       border: 1px solid rgba(19,154,75,.35);
       border-radius: 999px; padding: 4px 14px;
-      font-size: 11.5px; font-weight: 700; color: var(--green);
+      font-size: 16px; font-weight: 700; color: var(--green);
     }
 
     /* phone sizing in feature slides */
@@ -317,18 +375,18 @@
        S9 — BENEFÍCIOS
     ═══════════════════════════════════════ */
     .benefits-slide { padding: 28px 5%; gap: 0; }
-    .benefit-rows   { display: flex; flex-direction: column; gap: 12px; margin-top: 18px; flex: 1; }
+    .benefit-rows   { display: flex; flex-direction: column; gap: 25px; margin-top: 50px; flex: 1; }
     .benefit-row {
-      display: flex; align-items: flex-start; gap: 16px;
+      display: flex; align-items: center; gap: 16px;
       background: rgba(255,255,255,.04);
       border: 1px solid var(--border);
       border-left: 3px solid var(--green);
       border-radius: var(--radius); padding: 12px 16px;
       flex: 1;
     }
-    .b-icon  { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
-    .b-title { font-size: 14px; font-weight: 800; color: #fff; margin-bottom: 4px; }
-    .b-desc  { font-size: 12px; color: var(--muted); line-height: 1.55; }
+    .b-icon  { font-size: 36px; flex-shrink: 0; margin-top: 2px; }
+    .b-title { font-size: clamp(20px, 1.6vw, 30px); font-weight: 800; color: #fff; margin-bottom: 4px; }
+    .b-desc  { font-size: clamp(16px, 1.2vw, 20px); color: var(--muted); line-height: 1.55; }
 
     /* ═══════════════════════════════════════
        S10 — CANAL RECLAMAÇÕES
@@ -472,231 +530,190 @@
   ───────────────────────────────────────────── -->
   <section class="slide cover bg-hero" id="s0" data-label="Início">
     <div>
+      <div style="display:flex; flex-direction:row; align-items:flex-end; gap:20px; margin-bottom:50px;">
+        <img src="../images/bus-app-splash-icon_huge.png" alt="" style="height:128px; width:auto;" />
+        <span style="font-size:clamp(40px,5vw,72px); font-weight:800; letter-spacing:-1px; line-height:1.3; padding-bottom:8px; background:linear-gradient(160deg,#c6b06a 0%,#cf6d5f 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">BragançaBus</span>
+      </div>
       <span class="tag tag-green">App móvel · Android · Gratuito</span>
       <h1 class="cover-title">
         Horários e rotas de autocarros<br>
-        <span class="grad">em Bragança no teu bolso.</span>
+        <span class="grad">em tempo real no teu bolso.</span>
       </h1>
-      <p class="cover-lead">
-        O <strong>BragançaBus</strong> mostra linhas, paragens e previsão de chegada em tempo real. Interface leve, sem cadastro e sem anúncios.
-      </p>
-      <p class="cover-perks">Sem anúncios &nbsp;·&nbsp; Sem cadastro &nbsp;·&nbsp; Gratuito</p>
-      <div class="badges">
-        <div class="badge"><span class="badge-val">3</span><span class="badge-lbl">Linhas</span></div>
-        <div class="badge"><span class="badge-val">24+</span><span class="badge-lbl">Paragens</span></div>
-        <div class="badge"><span class="badge-val">€0</span><span class="badge-lbl">Custo</span></div>
-        <div class="badge"><span class="badge-val">RT</span><span class="badge-lbl">Tempo real</span></div>
-      </div>
     </div>
     <div class="phone-frame" style="max-width:65%; justify-self:center;">
-      <img class="phone-img" src="../images/route.jpeg" alt="App BragançaBus — rastreamento em tempo real" />
+      <img class="phone-img" src="../images/home.jpeg" alt="App BragançaBus — rastreamento em tempo real" />
     </div>
     <span class="slide-foot">BRAGANÇABUS · Apresentação</span>
   </section>
 
   <!-- ─────────────────────────────────────────────
-       S1 · DIVISOR — DORES
+       S1 · DOR PRINCIPAL — TEMPO REAL
   ───────────────────────────────────────────── -->
-  <section class="slide bg-divider" id="s1" data-label="As Dores">
-    <p class="section-eyebrow">Parte 1</p>
-    <h2 class="divider-title">As Dores dos<br><span class="grad">Utilizadores dos Autocarros</span></h2>
-    <p class="divider-sub">Os problemas reais que os passageiros enfrentam no dia-a-dia — e que o BragançaBus resolve.</p>
-    <span class="slide-foot">BRAGANÇABUS · Apresentação</span>
-  </section>
-
-  <!-- ─────────────────────────────────────────────
-       S2 · PAIN POINTS
-  ───────────────────────────────────────────── -->
-  <section class="slide pain-slide bg-dark" id="s2" data-label="Problemas">
-    <h2 class="section-h">O que os utilizadores perguntam todos os dias…</h2>
-    <div class="pain-grid">
-      <div class="pain-card">
-        <span class="pain-emoji">⏱️</span>
-        <p class="pain-title">Quando chega o autocarro?</p>
-        <p class="pain-desc">Sem informação em tempo real, os utilizadores chegam cedo à paragem e ficam à espera sem saber se o autocarro já passou ou ainda vem.</p>
+  <section class="slide bg-dark" id="s1" data-label="O Problema">
+    <div class="pain-hero">
+      <div>
+        <span class="tag" style="background:rgba(207,109,95,.15);color:var(--brand);border:1px solid var(--brand);">O Problema</span>
+        <h2 class="pain-main-title">Ninguém sabe onde<br>está o autocarro.</h2>
+        <p class="pain-main-sub">Milhares de pessoas dependem dos autocarros de Bragança — sem qualquer informação em tempo real.</p>
+        <div class="who-depends">
+          <div class="who-card">
+            <span class="who-num">~6.500</span>
+            <span class="who-label">Estudantes do IPB</span>
+            <span class="who-source">Fonte: IPB, 2024</span>
+          </div>
+          <div class="who-card">
+            <span class="who-num">~8.250</span>
+            <span class="who-label">Idosos (65+)</span>
+            <span class="who-source">Fonte: INE, Censos 2021</span>
+          </div>
+          <div class="who-card">
+            <span class="who-num">~3.500</span>
+            <span class="who-label">Utilizadores regulares</span>
+            <span class="who-source">Fonte: CM Bragança, est.</span>
+          </div>
+        </div>
       </div>
-      <div class="pain-card">
-        <span class="pain-emoji">🗺️</span>
-        <p class="pain-title">Qual é o percurso da minha linha?</p>
-        <p class="pain-desc">Os mapas de rotas estão em papel ou dispersos no site da Câmara. Não é claro quais paragens existem nem em que ordem o autocarro as percorre.</p>
-      </div>
-      <div class="pain-card">
-        <span class="pain-emoji">📰</span>
-        <p class="pain-title">O que se passa na cidade?</p>
-        <p class="pain-desc">Eventos e notícias municipais chegam tarde ou perdem-se nas redes sociais. Quem usa o autocarro raramente visita o site da Câmara.</p>
-      </div>
-      <div class="pain-card">
-        <span class="pain-emoji">💳</span>
-        <p class="pain-title">Como funciona o Cartão Munícipe?</p>
-        <p class="pain-desc">A informação sobre vantagens, adesão e utilização está dispersa. Muitos potenciais aderentes desistem antes de concluir o processo.</p>
+      <div class="pain-hero-right">
+        <p class="pain-consequences-label">Consequências</p>
+        <div class="pain-consequence">
+          <span class="pain-con-icon">⏳</span>
+          <p class="pain-con-title">Esperas longas e incertas na paragem</p>
+        </div>
+        <div class="pain-consequence">
+          <span class="pain-con-icon">📚</span>
+          <p class="pain-con-title">Atrasos para aulas e compromissos</p>
+        </div>
+        <div class="pain-consequence">
+          <span class="pain-con-icon">🤔</span>
+          <p class="pain-con-title">"Vale a pena esperar ou ir andando?"</p>
+        </div>
       </div>
     </div>
     <span class="slide-foot">BRAGANÇABUS · Apresentação</span>
   </section>
 
   <!-- ─────────────────────────────────────────────
-       S3 · VISÃO GERAL DA SOLUÇÃO
+       S3 · SOLUÇÃO : TEMPO REAL
   ───────────────────────────────────────────── -->
   <section class="slide overview bg-hero" id="s3" data-label="A Solução">
     <div>
       <span class="tag tag-green">A Solução</span>
       <h2 style="font-size:clamp(22px,2.6vw,38px);font-weight:800;line-height:1.18;margin:12px 0 6px;">
-        Uma app que responde<br>a todas essas questões.
+        Rastreamento<br>em Tempo Real
       </h2>
-      <p style="color:var(--muted);font-size:14px;">Disponível gratuitamente na Google Play Store.</p>
+      <p class="feat-sub">Sabe onde está o autocarro antes de sair de casa.</p>
       <div class="feat-list">
         <div class="feat-row">
+          <span class="feat-em">⏱️</span>
+          <div><p class="feat-name">Posição do autocarro atualizada a cada 5 segundos</p></div>
+        </div>
+        <div class="feat-row">
           <span class="feat-em">📍</span>
-          <div><p class="feat-name">Rastreamento em Tempo Real</p><p class="feat-desc">Posição do autocarro atualizada a cada 5 segundos</p></div>
+          <div><p class="feat-name">Estimativa baseada nos dados reais de chegada às paragens</p></div>
         </div>
         <div class="feat-row">
-          <span class="feat-em">🗺️</span>
-          <div><p class="feat-name">Mapa de Rotas Interativo</p><p class="feat-desc">3 linhas, zoom livre, filtros individuais por linha</p></div>
+          <span class="feat-em">🔔</span>
+          <div><p class="feat-name">Tempo de chegada visível ao tocar em qualquer paragem no mapa</p></div>
         </div>
-        <div class="feat-row">
-          <span class="feat-em">📰</span>
-          <div><p class="feat-name">Notícias & Eventos da Cidade</p><p class="feat-desc">Feed automático sincronizado com o site da Câmara Municipal</p></div>
-        </div>
-        <div class="feat-row">
-          <span class="feat-em">💳</span>
-          <div><p class="feat-name">Cartão Munícipe</p><p class="feat-desc">Informação, FAQ e acesso direto ao formulário de adesão</p></div>
-        </div>
-        <div class="feat-row">
-          <span class="feat-em">✅</span>
-          <div><p class="feat-name">Sem anúncios · Sem cadastro · Gratuito</p><p class="feat-desc">Android disponível — iOS em breve</p></div>
-        </div>
-      </div>
-    </div>
-    <div class="phone-frame" style="max-width:65%;justify-self:center;">
-      <img class="phone-img" src="../images/home.jpeg" alt="Ecrã inicial da app" />
-    </div>
-    <span class="slide-foot">BRAGANÇABUS · Apresentação</span>
-  </section>
-
-  <!-- ─────────────────────────────────────────────
-       S4 · FUNCIONALIDADE: TEMPO REAL
-  ───────────────────────────────────────────── -->
-  <section class="slide feat-slide bg-hero" id="s4" data-label="Tempo Real">
-    <div>
-      <span class="tag tag-outline">Funcionalidade 1</span>
-      <h2 class="feat-h2">Rastreamento<br>em Tempo Real</h2>
-      <p class="feat-sub">Sabe onde está o autocarro antes de sair de casa.</p>
-      <div class="bullets">
-        <div class="bullet"><span class="b-em">⏱️</span><span class="b-text">Posição do autocarro atualizada a cada 5 segundos</span></div>
-        <div class="bullet"><span class="b-em">📍</span><span class="b-text">Estimativa baseada nos dados reais de chegada às paragens</span></div>
-        <div class="bullet"><span class="b-em">🔔</span><span class="b-text">Tempo de chegada visível ao tocar em qualquer paragem no mapa</span></div>
-        <div class="bullet"><span class="b-em">🔋</span><span class="b-text">Não drena a bateria — não requer GPS ativo do utilizador</span></div>
       </div>
       <div class="resolve-badge">✅ Resolve: "Quando chega o autocarro?"</div>
     </div>
-    <div class="phone-frame">
-      <img class="phone-img" src="../images/route.jpeg" alt="Rastreamento em tempo real" />
+    <div class="phone-frame" style="max-width:65%;justify-self:center;">
+      <img class="phone-img" src="../images/route.jpeg" alt="Ecrã inicial da app" />
     </div>
     <span class="slide-foot">BRAGANÇABUS · Apresentação</span>
   </section>
 
   <!-- ─────────────────────────────────────────────
-       S5 · FUNCIONALIDADE: MAPA
+       S4 · FUNCIONALIDADE: MAPA
   ───────────────────────────────────────────── -->
-  <section class="slide feat-slide bg-hero" id="s5" data-label="Mapa de Rotas">
+  <section class="slide overview bg-hero" id="s5" data-label="Mapa de Rotas">
     <div>
       <span class="tag tag-outline">Funcionalidade 2</span>
-      <h2 class="feat-h2">Mapa de Rotas<br>& Paragens</h2>
+      <h2 style="font-size:clamp(22px,2.6vw,38px);font-weight:800;line-height:1.18;margin:12px 0 6px;">Mapa de Rotas<br>& Paragens</h2>
       <p class="feat-sub">Percursos completos das 3 linhas urbanas num único ecrã.</p>
-      <div class="bullets">
-        <div class="bullet"><span class="b-em">🗺️</span><span class="b-text">Mapa interativo com zoom e pan livres (pinch & pan)</span></div>
-        <div class="bullet"><span class="b-em">🎨</span><span class="b-text">Linhas U1, U2 e U3 com filtros individuais por cor</span></div>
-        <div class="bullet"><span class="b-em">🚏</span><span class="b-text">Lista completa de paragens com horários de funcionamento</span></div>
-        <div class="bullet"><span class="b-em">📋</span><span class="b-text">Paragens organizadas por linha em menus expansíveis</span></div>
+      <div class="feat-list">
+        <div class="feat-row"><span class="feat-em">🗺️</span><div><p class="feat-name">Mapa interativo com zoom e pan livres</p></div></div>
+        <div class="feat-row"><span class="feat-em">🎨</span><div><p class="feat-name">Linhas U1, U2 e U3 com filtros individuais por cor</p></div></div>
+        <div class="feat-row"><span class="feat-em">🚏</span><div><p class="feat-name">Lista completa de paragens com horários</p></div></div>
+        <div class="feat-row"><span class="feat-em">📋</span><div><p class="feat-name">Paragens organizadas por linha em menus expansíveis</p></div></div>
       </div>
       <div class="resolve-badge">✅ Resolve: "Qual é o percurso da minha linha?"</div>
     </div>
-    <div class="phone-frame">
+    <div class="phone-frame" style="max-width:65%;justify-self:center;">
       <img class="phone-img" src="../images/info.jpeg" alt="Mapa de rotas interativo" />
     </div>
     <span class="slide-foot">BRAGANÇABUS · Apresentação</span>
   </section>
 
   <!-- ─────────────────────────────────────────────
-       S6 · FUNCIONALIDADE: NOTÍCIAS
+       S5 · FUNCIONALIDADE: NOTÍCIAS
   ───────────────────────────────────────────── -->
-  <section class="slide feat-slide bg-hero" id="s6" data-label="Notícias & Eventos">
+  <section class="slide overview bg-hero" id="s6" data-label="Notícias & Eventos">
     <div>
       <span class="tag tag-outline">Funcionalidade 3</span>
-      <h2 class="feat-h2">Notícias & Eventos<br>da Cidade</h2>
+      <h2 style="font-size:clamp(22px,2.6vw,38px);font-weight:800;line-height:1.18;margin:12px 0 6px;">Notícias & Eventos<br>da Cidade</h2>
       <p class="feat-sub">Conteúdo da Câmara Municipal sempre atualizado, sem esforço.</p>
-      <div class="bullets">
-        <div class="bullet"><span class="b-em">📰</span><span class="b-text">Feed automático com as últimas notícias do município</span></div>
-        <div class="bullet"><span class="b-em">🎭</span><span class="b-text">Carrossel de eventos em destaque no topo da página</span></div>
-        <div class="bullet"><span class="b-em">🔄</span><span class="b-text">Sincronizado automaticamente com o site oficial da CM Bragança</span></div>
-        <div class="bullet"><span class="b-em">📲</span><span class="b-text">Cidadão informado sem precisar de visitar o site</span></div>
+      <div class="feat-list">
+        <div class="feat-row"><span class="feat-em">📰</span><div><p class="feat-name">Feed automático com as últimas notícias do município</p></div></div>
+        <div class="feat-row"><span class="feat-em">🎭</span><div><p class="feat-name">Carrossel de eventos em destaque no topo</p></div></div>
+        <div class="feat-row"><span class="feat-em">🔄</span><div><p class="feat-name">Sincronizado automaticamente com o site da CM Bragança</p></div></div>
       </div>
       <div class="resolve-badge">✅ Resolve: "O que se passa na cidade?"</div>
     </div>
-    <div class="phone-frame">
+    <div class="phone-frame" style="max-width:65%;justify-self:center;">
       <img class="phone-img" src="../images/news.jpeg" alt="Feed de notícias e eventos" />
     </div>
     <span class="slide-foot">BRAGANÇABUS · Apresentação</span>
   </section>
 
   <!-- ─────────────────────────────────────────────
-       S7 · FUNCIONALIDADE: CARTÃO MUNÍCIPE
+       S6 · FUNCIONALIDADE: CARTÃO MUNÍCIPE
   ───────────────────────────────────────────── -->
-  <section class="slide feat-slide bg-hero" id="s7" data-label="Cartão Munícipe">
+  <section class="slide overview bg-hero" id="s7" data-label="Cartão Munícipe">
     <div>
       <span class="tag tag-outline">Funcionalidade 4</span>
-      <h2 class="feat-h2">Cartão Munícipe<br>na App</h2>
+      <h2 style="font-size:clamp(22px,2.6vw,38px);font-weight:800;line-height:1.18;margin:12px 0 6px;">Cartão Munícipe<br>na App</h2>
       <p class="feat-sub">Informação clara sobre vantagens, adesão e perguntas frequentes.</p>
-      <div class="bullets">
-        <div class="bullet"><span class="b-em">💳</span><span class="b-text">Explicação detalhada das vantagens do Cartão Munícipe</span></div>
-        <div class="bullet"><span class="b-em">📋</span><span class="b-text">Guia passo-a-passo para aderir ao cartão</span></div>
-        <div class="bullet"><span class="b-em">❓</span><span class="b-text">Perguntas frequentes respondidas diretamente na app</span></div>
-        <div class="bullet"><span class="b-em">🔗</span><span class="b-text">Acesso direto ao formulário de adesão no site da Câmara</span></div>
+      <div class="feat-list">
+        <div class="feat-row"><span class="feat-em">💳</span><div><p class="feat-name">Vantagens do Cartão Munícipe explicadas</p></div></div>
+        <div class="feat-row"><span class="feat-em">📋</span><div><p class="feat-name">Guia passo-a-passo para aderir ao cartão</p></div></div>
+        <div class="feat-row"><span class="feat-em">❓</span><div><p class="feat-name">Perguntas frequentes respondidas na app</p></div></div>
+        <div class="feat-row"><span class="feat-em">🔗</span><div><p class="feat-name">Acesso direto ao formulário no site da Câmara</p></div></div>
       </div>
       <div class="resolve-badge">✅ Resolve: "Como funciona o Cartão Munícipe?"</div>
     </div>
-    <div class="phone-frame">
+    <div class="phone-frame" style="max-width:65%;justify-self:center;">
       <img class="phone-img" src="../images/home.jpeg" alt="Cartão Munícipe na app" />
     </div>
     <span class="slide-foot">BRAGANÇABUS · Apresentação</span>
   </section>
 
   <!-- ─────────────────────────────────────────────
-       S8 · DIVISOR — CÂMARA
-  ───────────────────────────────────────────── -->
-  <section class="slide bg-divider" id="s8" data-label="Câmara Municipal">
-    <p class="section-eyebrow">Parte 2</p>
-    <h2 class="divider-title">Benefícios para a<br><span class="grad">Câmara Municipal</span></h2>
-    <p class="divider-sub">Como o BragançaBus serve os objetivos estratégicos do município de Bragança.</p>
-    <span class="slide-foot">BRAGANÇABUS · Apresentação</span>
-  </section>
-
-  <!-- ─────────────────────────────────────────────
-       S9 · BENEFÍCIOS
+       S7 · BENEFÍCIOS
   ───────────────────────────────────────────── -->
   <section class="slide benefits-slide bg-dark" id="s9" data-label="Benefícios">
-    <h2 class="section-h">Visibilidade Digital e Comunicação com o Cidadão</h2>
-    <p class="section-sub">Quatro impactos diretos para o município</p>
+    <h2 class="section-h">impactos diretos para o município</h2>
     <div class="benefit-rows">
       <div class="benefit-row">
-        <span class="b-icon">🏙️</span>
+        <span class="b-icon">😊</span>
         <div>
-          <p class="b-title">Smart City & Fundos Europeus</p>
-          <p class="b-desc">Posiciona Bragança como município moderno com investimento em mobilidade inteligente — argumento relevante em candidaturas a fundos europeus (FEDER, Horizonte Europa).</p>
+          <p class="b-title">Satisfação do utilizador</p>
+          <p class="b-desc">O cidadão sabe exatamente quando o autocarro chega, sem esperas desnecessárias ou ansiedade. O tempo que antes era perdido na paragem passa a ser tempo útil — para estar com a família, descansar ou planeiar o dia.</p>
         </div>
       </div>
       <div class="benefit-row">
         <span class="b-icon">📡</span>
         <div>
           <p class="b-title">Canal Direto com o Cidadão</p>
-          <p class="b-desc">Notícias e eventos chegam ao telemóvel dos cidadãos sem depender das redes sociais. Conteúdo sincronizado automaticamente com o site oficial da Câmara.</p>
+          <p class="b-desc">Notícias e eventos atualizados chegam ao telemóvel dos cidadãos. Conteúdo sincronizado automaticamente com o site oficial da Câmara.</p>
         </div>
       </div>
       <div class="benefit-row">
         <span class="b-icon">🎯</span>
         <div>
-          <p class="b-title">Comunicação Segmentada por Perfil</p>
-          <p class="b-desc">Com um futuro perfil de utilizador (idade, freguesia, tipo), cada cidadão recebe conteúdo relevante — um evento juvenil para jovens, uma iniciativa sénior para o público certo — sem custo adicional.</p>
+          <p class="b-title">Informação sobre Cartão Munícipe para novos utilizadores</p>
+          <p class="b-desc">Tudo o que precisa de saber sobre o Cartão Munícipe: como obter, vantagens, custos e perguntas frequentes.</p>
         </div>
       </div>
       <div class="benefit-row">
@@ -710,73 +727,161 @@
     <span class="slide-foot">BRAGANÇABUS · Apresentação</span>
   </section>
 
-  <!-- ─────────────────────────────────────────────
-       S10 · CANAL DE RECLAMAÇÕES
+    <!-- ─────────────────────────────────────────────
+       S8 · QR CODE VS NFC
   ───────────────────────────────────────────── -->
-  <section class="slide complaints-slide bg-dark" id="s10" data-label="Canal de Comunicação">
-    <h2 class="section-h">Canal de Comunicação Direta com os Utilizadores</h2>
-    <p class="section-sub">Reclamações, sugestões e ocorrências — organizadas e com contexto</p>
-    <div class="compare-grid">
-      <div class="compare-col before">
-        <p class="cmp-label before">😤 Atualmente</p>
-        <p class="cmp-title" style="color:var(--muted);">Sem canal estruturado</p>
-        <div class="cmp-item"><span>📞</span><span>Chamadas dispersas, sem registo sistemático</span></div>
-        <div class="cmp-item"><span>📧</span><span>Emails avulsos sem contexto sobre a situação</span></div>
-        <div class="cmp-item"><span>📱</span><span>Comentários nas redes sociais difíceis de gerir</span></div>
-        <div class="cmp-item"><span>❌</span><span>Sem dados sobre a linha, paragem ou horário afetado</span></div>
-        <div class="cmp-item"><span>⏳</span><span>Triagem e resposta ineficientes</span></div>
+  <section class="slide bg-dark" id="s11" data-label="QR Code vs NFC">
+    <div class="pain-hero">
+      <div>
+        <span class="tag" style="background:rgba(19,154,75,.15);color:var(--green);border:1px solid var(--green);">QR Code Digital</span>
+        <h2 class="pain-main-title">Substitua o cartão NFC<br>pelo telemóvel.</h2>
+        <p class="pain-main-sub">Elimine os custos de produção e distribuição de cartões plásticos com chip NFC.</p>
+        <div style="display:inline-flex; flex-direction:column; gap:12px;">
+        <div class="who-depends">
+          <div class="who-card">
+            <span class="who-num">€6.750</span>
+            <span class="who-label">Poupança total/ano</span>
+            <span class="who-source">Cartões €2.250 + Admin €4.500</span>
+          </div>
+          <div class="who-card">
+            <span class="who-num">~79 kg</span>
+            <span class="who-label">CO₂ evitado/ano</span>
+            <span class="who-source">175 g CO₂ × 450 cartões</span>
+          </div>
+          <div class="who-card">
+            <span class="who-num">€0</span>
+            <span class="who-label">Em custos</span>
+            <span class="who-source">Na 2º via para os cidadãos</span>
+          </div>
+        </div>
+        <div class="calc-note" style="margin-top:0; width:100%;">
+          <p class="calc-note-title">📐 Como foram calculados estes valores</p>
+          <p>· <strong>2.500</strong> titulares ativos × <strong>18%</strong> renovação anual = <strong>450 cartões/ano</strong> <em>(estimativa CM Bragança)</em></p>
+          <p>· Custo por cartão NFC: <strong>€5</strong> → 450 × €5 = <strong>€2.250/ano</strong> <em>(Tabela de taxas 2026)</em></p>
+          <p>· Custo admin: <strong>1h × €10/h</strong> por cartão → 450h × €10 = <strong>€4.500/ano</strong></p>
+          <p>· CO₂: <strong>175 g/cartão</strong> (média PVC com chip, ADEME/Ecoinvent) × 450 = <strong>~79 kg/ano</strong></p>
+        </div>
+        </div><!-- /inline-flex wrapper -->
       </div>
-      <div class="compare-col after">
-        <p class="cmp-label after">✅ Com o BragançaBus</p>
-        <p class="cmp-title" style="color:#fff;">Canal integrado na app</p>
-        <div class="cmp-item"><span>📋</span><span>Mensagens organizadas com dados contextuais automáticos</span></div>
-        <div class="cmp-item"><span>📍</span><span>Linha, paragem e horário registados automaticamente</span></div>
-        <div class="cmp-item"><span>🔔</span><span>Notificação ao utilizador quando há resposta</span></div>
-        <div class="cmp-item"><span>📊</span><span>Painel de ocorrências para os serviços municipais</span></div>
-        <div class="cmp-item"><span>🏆</span><span>Demonstra abertura e modernidade do município</span></div>
+      <div class="pain-hero-right">
+        <p class="pain-consequences-label">Vantagens do QR Code</p>
+        <div class="pain-consequence">
+          <span class="pain-con-icon">📱</span>
+          <p class="pain-con-title">Sempre disponível no telemóvel, sem risco de perder</p>
+        </div>
+        <div class="pain-consequence">
+          <span class="pain-con-icon">⚡</span>
+          <p class="pain-con-title">Cartão Online - sem espera, sem custos</p>
+        </div>
+        <div class="pain-consequence">
+          <span class="pain-con-icon">♻️</span>
+          <p class="pain-con-title">Zero plástico, zero resíduos</p>
+        </div>
+        <div class="pain-consequence">
+          <span class="pain-con-icon">🌍</span>
+          <p class="pain-con-title">Alinhado com metas de sustentabilidade europeias</p>
+        </div>
       </div>
     </div>
     <span class="slide-foot">BRAGANÇABUS · Apresentação</span>
   </section>
 
   <!-- ─────────────────────────────────────────────
-       S11 · QR CODE VS NFC
+       S9 · CANAL DE RECLAMAÇÕES
   ───────────────────────────────────────────── -->
-  <section class="slide qr-slide bg-dark" id="s11" data-label="QR Code vs NFC">
-    <h2 class="section-h">QR Code Digital — Substituição do Cartão NFC</h2>
-    <p class="section-sub">Eliminar o cartão plástico com chip NFC — poupança económica e impacto ambiental</p>
-    <div class="qr-grid">
-      <div class="qr-col nfc">
-        <p class="qr-col-title">💳 Sistema Atual (NFC físico)</p>
-        <div class="qr-item"><span>•</span><span>Cartão plástico com chip NFC</span></div>
-        <div class="qr-item"><span>•</span><span>Custo de produção: €4 – €8 por cartão</span></div>
-        <div class="qr-item"><span>•</span><span>Deslocação presencial para levantamento</span></div>
-        <div class="qr-item"><span>•</span><span>Segunda via necessária em caso de perda ou dano</span></div>
-        <div class="qr-item"><span>•</span><span>PVC não biodegradável — 450+ anos para decompor</span></div>
-        <div class="qr-item"><span>•</span><span>Custo administrativo de emissão por cada cartão</span></div>
+  <section class="slide bg-dark" id="s10" data-label="Feedback dos Utilizadores">
+    <div class="pain-hero">
+      <div>
+        <span class="tag" style="background:rgba(37,19,154,.15);color:#3b82f6;border:1px solid #3b82f6;">Feedback dos Utilizadores</span>
+        <h2 class="pain-main-title">Criar um canal direto<br>entre os utilizadorese a Câmara.</h2>
+        <p class="pain-main-sub">A voz do passageiro chega diretamente à quem precisa ouvir.</p>
+        <div class="who-depends">
+          <div class="who-card">
+            <span class="who-num">💬</span>
+            <span class="who-label">Reclamações</span>
+          </div>
+          <div class="who-card">
+            <span class="who-num">💡</span>
+            <span class="who-label">Sugestões</span>
+          </div>
+          <div class="who-card">
+            <span class="who-num">📢</span>
+            <span class="who-label">Informações do serviço</span>
+          </div>
+        </div>
       </div>
-      <div class="qr-col digital">
-        <p class="qr-col-title" style="color:var(--green);">📱 Com o BragançaBus (QR Code)</p>
-        <div class="qr-item"><span style="color:var(--green);">✓</span><span>QR Code no telemóvel — sempre disponível</span></div>
-        <div class="qr-item"><span style="color:var(--green);">✓</span><span>Custo de emissão: €0</span></div>
-        <div class="qr-item"><span style="color:var(--green);">✓</span><span>Ativação instantânea diretamente na app</span></div>
-        <div class="qr-item"><span style="color:var(--green);">✓</span><span>Nunca se perde nem se danifica</span></div>
-        <div class="qr-item"><span style="color:var(--green);">✓</span><span>Zero plástico, zero resíduos</span></div>
-        <div class="qr-item"><span style="color:var(--green);">✓</span><span>Zero intervenção administrativa por emissão</span></div>
+      <div class="pain-hero-right">
+        <p class="pain-consequences-label">O que a Câmara ganha</p>
+        <div class="pain-consequence">
+          <span class="pain-con-icon">🎯</span>
+          <p class="pain-con-title">Visão real de como o serviço é prestado à população</p>
+        </div>
+        <div class="pain-consequence">
+          <span class="pain-con-icon">📍</span>
+          <p class="pain-con-title">Contexto automático: linha, paragem e horário</p>
+        </div>
+        <div class="pain-consequence">
+          <span class="pain-con-icon">⚡</span>
+          <p class="pain-con-title">Decisões mais rápidas e eficazes para resolver problemas</p>
+        </div>
+        <div class="pain-consequence">
+          <span class="pain-con-icon">🤝</span>
+          <p class="pain-con-title">Proximidade com o cidadão — município mais transparente</p>
+        </div>
       </div>
-    </div>
-    <div class="savings-bar">
-      <span style="font-size:11.5px;font-weight:800;color:#fff;">📊 Estimativa anual (~2.500 titulares · 18% de renovação/ano):</span>
-      <span class="sav-stat"><span class="sav-val">€2.700–€5.400</span><span class="sav-lbl">poupança em cartões</span></span>
-      <span class="sav-stat"><span class="sav-val">€4.500–€9.000</span><span class="sav-lbl">poupança administrativa</span></span>
-      <span class="sav-stat"><span class="sav-val">~80 kg CO₂</span><span class="sav-lbl">evitado/ano</span></span>
-      <span class="sav-stat"><span class="sav-val">2,25 kg</span><span class="sav-lbl">PVC eliminado/ano</span></span>
     </div>
     <span class="slide-foot">BRAGANÇABUS · Apresentação</span>
   </section>
 
   <!-- ─────────────────────────────────────────────
-       S12 · FUTURAS FUNCIONALIDADES
+       S10 · CONTEÚDO PERSONALIZADO
+  ───────────────────────────────────────────── -->
+  <section class="slide bg-dark" id="s10b" data-label="Conteúdo Personalizado">
+    <div class="pain-hero">
+      <div>
+        <span class="tag" style="background:rgba(198,176,106,.15);color:var(--brand-start);border:1px solid var(--brand-start);">Comunicação Personalizada</span>
+        <h2 class="pain-main-title">A mensagem certa,<br>para a pessoa certa.</h2>
+        <p class="pain-main-sub">A Câmara passa a comunicar com a população de forma direta e segmentada.</p>
+        <div class="who-depends">
+          <div class="who-card">
+            <span class="who-num">👶</span>
+            <span class="who-label">Jovens / Estudantes</span>
+          </div>
+          <div class="who-card">
+            <span class="who-num">👴</span>
+            <span class="who-label">Seniores</span>
+          </div>
+          <div class="who-card">
+            <span class="who-num">🏘️</span>
+            <span class="who-label">Por freguesia</span>
+          </div>
+        </div>
+      </div>
+      <div class="pain-hero-right">
+        <p class="pain-consequences-label">O que se torna possível</p>
+        <div class="pain-consequence">
+          <span class="pain-con-icon">🎯</span>
+          <p class="pain-con-title">Conteúdo entregue por idade, freguesia ou tipo de utilizador</p>
+        </div>
+        <div class="pain-consequence">
+          <span class="pain-con-icon">📣</span>
+          <p class="pain-con-title">Eventos juvenis destacados para jovens — iniciativas sénior para o público certo</p>
+        </div>
+        <div class="pain-consequence">
+          <span class="pain-con-icon">📲</span>
+          <p class="pain-con-title">Canal direto — sem custo de SMS, flyers ou publicidade paga</p>
+        </div>
+        <div class="pain-consequence">
+          <span class="pain-con-icon">🔒</span>
+          <p class="pain-con-title">Dados de perfil recolhidos com consentimento do utilizador</p>
+        </div>
+      </div>
+    </div>
+    <span class="slide-foot">BRAGANÇABUS · Apresentação</span>
+  </section>
+
+  <!-- ─────────────────────────────────────────────
+       S11 · FUTURAS FUNCIONALIDADES
   ───────────────────────────────────────────── -->
   <section class="slide futures-slide bg-hero" id="s12" data-label="Roadmap">
     <h2 class="section-h">Futuras Funcionalidades — Roadmap</h2>
