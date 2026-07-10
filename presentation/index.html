@@ -497,6 +497,65 @@
     @media (max-width: 480px) {
       .futures-grid { grid-template-columns: 1fr; }
     }
+
+    /* ═══════════════════════════════════════
+       LANDSCAPE TABLET (iPad A2197 ~1024×700px disponíveis)
+    ═══════════════════════════════════════ */
+    @media (min-width: 801px) and (max-height: 780px) {
+      /* Layout grids */
+      .cover    { padding: 18px 5% 18px 6%; gap: 20px; }
+      .overview { padding: 16px 4% 16px 6%; gap: 20px; }
+      .feat-slide { padding: 16px 4% 16px 6%; gap: 20px; }
+      .pain-hero  { padding: 18px 6%; gap: 24px; }
+
+      /* Cover logo block */
+      .cover > div > div:first-child { margin-bottom: 16px !important; }
+      .cover > div > div:first-child img { height: 80px !important; }
+
+      /* Cover text */
+      .cover-title { font-size: clamp(20px, 2.8vw, 36px); margin: 8px 0 8px; }
+      .cover-lead  { font-size: 13px; margin-bottom: 12px; }
+
+      /* Feature slides */
+      .feat-sub  { font-size: 14px; margin-bottom: 10px; }
+      .feat-list { gap: 6px; margin-top: 10px; }
+      .feat-row  { padding: 7px 12px; }
+      .feat-em   { font-size: 20px; }
+      .feat-name { font-size: 16px; }
+      .resolve-badge { font-size: 13px; margin-top: 10px; }
+
+      /* Pain hero */
+      .pain-main-title { font-size: clamp(20px, 2.8vw, 38px); margin: 8px 0 10px; }
+      .pain-main-sub   { font-size: 14px; margin-bottom: 14px; }
+      .who-depends     { gap: 8px; }
+      .who-card        { padding: 10px 14px; }
+      .who-num         { font-size: 18px; }
+      #s10 .who-num, #s10b .who-num { font-size: 34px; }
+      .pain-hero-right { gap: 10px; }
+      .pain-consequence { padding: 10px 14px; }
+      .pain-con-icon   { font-size: 22px; }
+      .pain-con-title  { font-size: 13px; }
+      .pain-consequences-label { margin-bottom: 2px; }
+
+      /* Benefits slide */
+      .benefits-slide { padding: 16px 5%; }
+      .benefit-rows   { margin-top: 14px; gap: 12px; }
+      .b-icon  { font-size: 28px; }
+      .b-title { font-size: clamp(14px, 1.4vw, 17px); }
+      .b-desc  { font-size: clamp(11px, 1vw, 13px); }
+
+      /* Roadmap */
+      .futures-slide { padding: 16px 5%; }
+      .futures-grid  { gap: 10px; margin-top: 12px; }
+      .future-card   { padding: 14px; }
+      .fut-em   { font-size: 22px; }
+      .fut-title { font-size: 13px; }
+      .fut-desc  { font-size: 11px; }
+
+      /* Section headings */
+      .section-h   { font-size: clamp(18px, 2.2vw, 28px); }
+      .section-sub { font-size: 12px; }
+    }
   </style>
 </head>
 <body>
